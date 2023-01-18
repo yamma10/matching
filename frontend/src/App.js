@@ -1,13 +1,12 @@
-import Home  from "./pages/home/Home"
-import Profile from "./pages/profile/Profile";
-import Top from "./pages/top/Top";
+import Register from "./pages/register/Register";
+
 
 
 
 function App() {
   return (
     <div className="App">
-      <Profile />
+      <Register />
     </div>
   );
 }
