@@ -1,8 +1,16 @@
 import { Favorite, MoreVert } from '@mui/icons-material'
-import React from 'react'
+import React, { useState } from 'react'
 import "./Post.css"
 
-export default function () {
+export default function Post() {
+  const [like, setLike ] = useState(0);
+  const [ isLiked, setIsLiked ] = useState(false);
+
+  const handleLike = () => {
+    setLike(isLiked ? like - 1 : like + 1);
+    setIsLiked(!isLiked);
+  }
+
   return (
     <div className='post'>
       <div className="postWrapper">
@@ -28,14 +36,16 @@ export default function () {
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
-            <Favorite htmlColor='red'/>
+            <Favorite htmlColor='red' onClick={
+              () => handleLike()
+            }/>
             <span className="postLikeCounter">
-              5人がいいねを押しました
+              {like}人がいいねを押しました
             </span>
           </div>
           <div className="postBottomRight">
             <span className="postCommentText">
-              
+              コンタクトをとる
             </span>
           </div>
         </div>
