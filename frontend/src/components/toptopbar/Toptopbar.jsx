@@ -1,8 +1,9 @@
 import React from 'react'
+import "./Toptopbar.css"
 import { Chat, Notifications, Search } from "@mui/icons-material"
-import "./Topbar.css"
+import LoginIcon from '@mui/icons-material/Login';
 
-export default function () {
+export default function Toptopbar() {
   return (
     <div className='topbarContainer'>
       <div className="topbarLeft">
@@ -20,16 +21,17 @@ export default function () {
       <div className="topbarRight">
         <div className="topbarItemIcons">
           <div className="topbarIconItem">
-            <Chat />
-            <span className="topbarIconBadge">1</span>
+            <span className="loginButton">
+              ログイン
+            </span>
+            
           </div>
           <div className="topbarIconItem">
-            <Notifications />
-            <span className="topbarIconBadge">2</span>
+            <span className='registerButton'>新規登録</span>
+            
           </div>
-          <img src="/assets/monster/Icon01.png" alt="" className="topbarImg" />
         </div>
       </div>
     </div>
   );
-};
+}
