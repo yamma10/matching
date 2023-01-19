@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import "./SendMessage.css"
 import { Input } from "@mui/material";
-import SendIcon from "@mui/icons-material"
+
 
 export default function SendMessage() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
-
+  
   //わからないところ
   //送ったメッセージを表示するときに、送ったメッセージがぽこんと下から出てくる感じにしたい（毎回レンダリングがはしることなく）
   //メッセージのテーブル設計はどのようにすればいいのか？

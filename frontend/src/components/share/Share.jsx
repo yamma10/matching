@@ -1,4 +1,4 @@
-import { Gif, Image } from '@mui/icons-material'
+import { Image } from '@mui/icons-material'
 import React from 'react'
 import "./Share.css"
 

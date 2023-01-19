@@ -1,7 +1,6 @@
 import React from 'react'
 import "./Toptopbar.css"
-import { Chat, Notifications, Search } from "@mui/icons-material"
-import LoginIcon from '@mui/icons-material/Login';
+import { Search } from "@mui/icons-material"
 
 export default function Toptopbar() {
   return (

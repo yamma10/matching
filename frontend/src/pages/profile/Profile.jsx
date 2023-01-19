@@ -1,7 +1,6 @@
 import React from 'react'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Timeline from '../../components/timeline/Timeline'
-import Rightbar from '../../components/rightbar/Rightbar'
 import Topbar from '../../components/topbar/Topbar'
 import "./Profile.css"
 import ProfileDesc from '../../components/profiledesc/ProfileDesc'
