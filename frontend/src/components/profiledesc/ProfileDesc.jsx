@@ -16,12 +16,6 @@ export default function ProfileDesc({state}) {
           お住まい（市まで）:<br className='hidden' />
         </div>
         <div className="type">
-          得意な教科:<br className='hidden' />
-        </div>
-        <div className="type">
-          教えてほしい教科:<br className='hidden' />
-        </div>
-        <div className="type">
           お探しの授業形態:<br/>      
         </div>
         <div className="type">
@@ -38,14 +32,14 @@ export default function ProfileDesc({state}) {
           お住まい（市まで）:<br className='hidden' />
         </div>
         <div className="type">
-          対応できる教科
+          対応できる教科:
         </div>
         <div className="type">
           授業形態:<br/>      
         </div>
-        <div className="type">
+        {/* <div className="type">
           一言:<br/>
-        </div>
+        </div> */}
       </>
     )
   }
