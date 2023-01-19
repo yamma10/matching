@@ -1,4 +1,4 @@
-import { Home, Notifications, Person, Search, Settings } from '@mui/icons-material'
+import { Home, Person, Search, Settings } from '@mui/icons-material'
 import React from 'react'
 import "./Sidebar.css"
 
