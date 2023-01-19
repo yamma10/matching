@@ -1,0 +1,28 @@
+.profiledesc {
+  flex: 5;
+}
+
+
+.descWrapper {
+  border-radius: 5px;
+  padding:4px;
+  border: 1px solid;
+  height:250px;
+  background-color: orange;
+  overflow: visible;
+  
+}
+
+.type {
+  font-weight: bold;
+  word-break: break-all;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+
+@media screen and (min-width: 1100px){
+  .hidden {
+  display: none;
+}
+}

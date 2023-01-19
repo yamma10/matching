@@ -4,6 +4,7 @@ import Timeline from '../../components/timeline/Timeline'
 import Rightbar from '../../components/rightbar/Rightbar'
 import Topbar from '../../components/topbar/Topbar'
 import "./Profile.css"
+import ProfileDesc from '../../components/profiledesc/ProfileDesc'
 
 export default function Profile() {
   return (
@@ -27,14 +28,14 @@ export default function Profile() {
               <div className="profileInfoName">
                 Yamato
               </div>
-              <span className="profileInfoDesc">
-                アプリ作成を練習中
-              </span>
+              <div className="profileInfoDesc">
+                
+              </div>
             </div>
           </div>
           <div className="profileRightBottom">
             <Timeline />
-            <Rightbar />
+            <ProfileDesc  state/>
           </div>
         </div>
       </div>

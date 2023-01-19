@@ -1,12 +1,14 @@
-import Register from "./pages/register/Register";
 
-
+import SendMessage from "./components/sendmessage/SendMessage";
+import Top from "./pages/top/Top";
+import Profile from "./pages/profile/Profile.jsx"
+import Settings from "./pages/settings/Settings";
 
 
 function App() {
   return (
     <div className="App">
-      <Register />
+      <Settings  />
     </div>
   );
 }

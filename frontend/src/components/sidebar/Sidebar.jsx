@@ -20,12 +20,6 @@ export default function Sidebar() {
             </span>
           </li>
           <li className="sidebarListItem">
-            <Notifications className='sidebarIcon' />
-            <span className="sidebarListItemText">
-              通知
-            </span>
-          </li>
-          <li className="sidebarListItem">
             <Person className='sidebarIcon' />
             <span className="sidebarListItemText">
               プロフィール
