@@ -6,7 +6,6 @@ const TeacherSchema = new mongoose.Schema({
     required: true,
     min: 3,
     max: 25,
-    unique: true,
   },
   email: {
     type: String,

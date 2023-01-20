@@ -12,8 +12,8 @@ router.post("/student", async (req, res) => {
       password: req.body.password,
     });
 
-    const user = await newStudent.save();
-    return res.status.json(user);
+    const student = await newStudent.save();
+    return res.status.json(student);
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -28,11 +28,41 @@ router.post("/teacher", async (req, res) => {
       password: req.body.password,
     });
 
-    const user = await newTeacher.save();
-    return res.status.json(user);
+    const teacher = await newTeacher.save();
+    return res.status.json(teacher);
   } catch (err) {
     return res.status(500).json(err);
   }
 })
+
+//生徒ログイン
+router.post("/student/login", async (req, res) => {
+  try {
+    const student = await Student.findOne({email: req.body.email});
+    if (!student) return res.status(404).send("ユーザーが見つかりません");
+
+    const vailedPassword = req.body.password === student.password;
+    if (!vailedPassword) return res.status(400).json("パスワードが違います");
+
+    return res.status(200).json(student);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+//教師ログイン
+router.post("/teacher/login", async (req, res) => {
+  try {
+    const teacher = await Teacher.findOne({email: req.body.email});
+    if (!teacher) return res.status(404).send("ユーザーが見つかりません");
+
+    const vailedPassword = req.body.password === teacher.password;
+    if (!vailedPassword) return res.status(400).json("パスワードが違います");
+
+    return res.status(200).json(teacher);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
 
 module.exports = router;
