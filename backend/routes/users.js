@@ -1,13 +1,8 @@
 //ユーザー情報を格納
 const router = require("express").Router();
+const Teacher = require("../models/Teacher");
+const Student = require("../models/Student");
 
-//生徒ユーザー登録
-router.post("/registerstudent", (req, res) => {
-  try {
-    
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-})
+
 
 module.exports = router;

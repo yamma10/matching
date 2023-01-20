@@ -34,8 +34,8 @@ const TeacherSchema = new mongoose.Schema({
     default: "saga",
   },
   method: {
-    type: Boolean,
-    default: false,
+    type: String,
+    default: "",
   },
 },
 

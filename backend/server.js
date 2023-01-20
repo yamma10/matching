@@ -3,7 +3,7 @@ const app = express();
 const userRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
 const postRoute = require("./routes/posts")
-const PORT = 3000;
+const PORT = 5000;
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -12,10 +12,12 @@ mongoose.connect(process.env.MONGOURL).then(() => {
   console.log("DBと接続中です");
 }).catch((err) => {
   console.log("DBとの接続に失敗しました")
+  console.log(err)
 });
 
 //ミドルウェア
-//  /api/usersがルート
+app.use(express.json());
+//  第1引数をルートとして設定する
 app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute)
