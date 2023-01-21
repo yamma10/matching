@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from "./Register.module.css"
+import { Link } from "react-router-dom";
 
 export default function Register() {
   return (
@@ -36,9 +37,11 @@ export default function Register() {
             <button className={styles.loginButton}>
               サインアップ
             </button>
-            <button className={styles.loginRegisterButton}>
-              ログイン
-            </button>
+            <Link to="/login"  >
+              <button className={styles.loginRegisterButton}>
+                ログイン
+              </button>
+            </Link>
           </div>
         </div>
       </div>

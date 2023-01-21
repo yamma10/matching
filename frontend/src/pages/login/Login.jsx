@@ -1,5 +1,6 @@
 import React from 'react'
 import "./Login.css"
+import { Link } from "react-router-dom";
 
 export default function Login() {
   return (
@@ -26,9 +27,11 @@ export default function Login() {
             <button className="loginButton">
               ログイン
             </button>
-            <button className="loginRegisterButton">
-              アカウント作成
-            </button>
+            <Link to="/register" className='register' >
+              <button className="loginRegisterButton">
+                アカウント作成
+              </button>
+            </Link>
           </div>
         </div>
       </div>
