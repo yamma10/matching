@@ -33,6 +33,10 @@
   outline: none;
 }
 
+.shareInput::placeholder {
+  font-size: larger;
+}
+
 .shareHr {
   margin: 10px;
 }
