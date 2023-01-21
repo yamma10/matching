@@ -99,7 +99,7 @@ router.get("/timeline/all", async (req, res) => {
     }
 
     
-    //同じ市の教師を全て取り出す
+    //同じ市に住んでいるか、オンラインで教えられる教師を取り出す
     const samecityTeachers = await Teacher.find({$or: [
       { city: currentStudent.city },
       { method: true }

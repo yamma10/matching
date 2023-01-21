@@ -17,23 +17,6 @@ export default function Top() {
             <div className="desc2">
               <u>先生を探している</u>人に
             </div>
-            
-            {/* <h4 className="topPageDescMain">
-              <span className="main01">
-                誰かを教えたい方や
-              </span>
-              <br/>
-              <div className="main02">
-                先生を探している方のための
-              </div>
-              <br />
-              <span className="main03">
-                アプリケーション
-              </span>
-            </h4>
-            <span className="topPageDescsub">
-            生徒は募集に対してコンタクトをとることができます
-          </span> */}
           </div>
           <img src="/assets/person/person01.jpg" alt="" className="topImg" />
         </div>

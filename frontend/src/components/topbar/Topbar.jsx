@@ -2,7 +2,7 @@ import React from 'react'
 import { Chat, Notifications, Search } from "@mui/icons-material"
 import "./Topbar.css"
 
-export default function () {
+export default function Topbar() {
   return (
     <div className='topbarContainer'>
       <div className="topbarLeft">
