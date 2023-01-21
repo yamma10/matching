@@ -3,6 +3,7 @@ const router = require("express").Router();
 const { SchemaTypes } = require("mongoose");
 const Post = require("../models/Post");
 const Student = require("../models/Student");
+const { listeners } = require("../models/Teacher");
 const Teacher = require("../models/Teacher");
 
 //投稿を作成する
@@ -78,8 +79,12 @@ router.get("/timeline/all", async (req, res) => {
     if( !currentStudent) {
       const currentTeacher = await Teacher.findById(req.body.userId);
 
-      //同じ市の教師を全て取り出す
-      const samecityTeachers = await Teacher.find({ city : currentTeacher.city });
+      //同じ市に住んでいるか、オンラインで教えられる教師を取り出す
+      const samecityTeachers = await Teacher.find({$or: [
+        { city: currentTeacher.city },
+        { method: true }
+      ]});
+      
 
       //取り出した教師の投稿をすべて取り出す
       //何も投稿していない教師のPostが[]として取り出されてしまう
@@ -88,24 +93,29 @@ router.get("/timeline/all", async (req, res) => {
         return teacherPosts;
       })
       );
-      return res.status(200).json(samecityPosts);
+      //配列をフラット化することによって内側の配列だけ取り出している
+      const flattenedData = samecityPosts.flat();
+      return res.status(200).json(flattenedData);
     }
 
     
     //同じ市の教師を全て取り出す
-    const samecityTeachers = await Teacher.find({ city : currentStudent.city });
+    const samecityTeachers = await Teacher.find({$or: [
+      { city: currentStudent.city },
+      { method: true }
+    ]});
 
     //取り出した教師の投稿をすべて取り出す
-    //何も投稿していない教師のPostが[]として取り出されてしまう
-    const samecityPosts = await Promise.all(samecityTeachers.map((teacher) => {
+    let samecityPosts = await Promise.all(samecityTeachers.map((teacher) => {
       const teacherPosts = Post.find({userId: teacher._id});
       return teacherPosts;
     })
     );
-    // 下のコメントでとってこれるならできそう
-    // console.log(samecityPosts[0][0].desc)
-    return res.status(200).json(samecityPosts);
-    //同じ市の投稿内容をすべて取得する
+
+    //配列をフラット化することによって内側の配列だけ取り出している
+    const flattenedData = samecityPosts.flat();
+    
+    return res.status(200).json(flattenedData);
     
   } catch(err) {
     return res.status(500).json(err);
