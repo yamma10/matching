@@ -27,6 +27,10 @@ const TeacherSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
+  subject: {
+    type: String,
+    default: ""
+  },
   city: {
     type: String,
     max: 4,
