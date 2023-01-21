@@ -8,11 +8,12 @@ export default function Share() {
       <div className="shareWrapper">
         <div className="shareTop">
           <img src="/assets/monster/Icon01.png" alt="" className="shareProfileImg" />
-          <input
+          <textarea cols="20" rows="5" className="shareInput" placeholder='投稿内容'></textarea>
+          {/* <input
             type="text" 
             className="shareInput"
             placeholder="投稿内容"
-          />
+          /> */}
         </div>
         <hr className="shareHr" />
         <div className="shareButtons">
