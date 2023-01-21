@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Settings.css"
 
 //やり残し
@@ -6,6 +6,13 @@ import "./Settings.css"
 //ユーザー情報持ってくる
 
 export default function Settings({state}) {
+  // 状態を管理するための変数を定義
+  const [meetingType, setMeetingType] = useState('対面');
+
+  // プルダウンの選択値を更新する関数
+  const handleChange = event => {
+    setMeetingType(event.target.value);
+  };
 
   const SettingTeacher = () => {
     return (
@@ -61,21 +68,13 @@ export default function Settings({state}) {
               </div>
               <div className='settingItem' >
                 <p>授業形態</p>
-                <input
-                  type="text"
-                  className="settingInput"
-                />
+                <select value={meetingType} onChange={handleChange}>
+                  <option value="face-to-face">対面</option>
+                  <option value="any">どちらでも可能</option>
+                  <option value="online">オンライン</option>
+                  
+                </select>
               </div>
-              {/* 改行できない */}
-              {/* <div className='settingItem' >
-                <p>一言</p>
-                <input
-                  type="text"
-                  className="settingInputMessage"
-                  maxLength={400}
-                  wrap="soft"
-                />
-              </div> */}
               <button className="loginButton">
                 変更する
               </button>
@@ -140,21 +139,20 @@ export default function Settings({state}) {
               </div>
               <div className='settingItem' >
                 <p>お探しの授業形態</p>
-                <input
-                  type="text"
-                  className="settingInput"
-                />
+                <select value={meetingType} onChange={handleChange}
+                className='settingInput'
+                >
+                  <option value="face-to-face">
+                    対面
+                  </option>
+                  <option value="any">
+                    どちらでも可能
+                  </option>
+                  <option value="online">
+                    オンライン
+                  </option>
+                </select>
               </div>
-              {/* 改行できない */}
-              {/* <div className='settingItem' >
-                <p>一言</p>
-                <input
-                  type="text"
-                  className="settingInputMessage"
-                  maxLength={400}
-                  wrap="soft"
-                />
-              </div> */}
               <button className="loginButton">
                 変更する
               </button>
