@@ -15,16 +15,16 @@ export default function Profile() {
           <div className="profileRightTop">
             <div className="profileCover">
               <img
-                src="assets/landscape/Image01.jpeg" alt="" 
+                src="/assets/landscape/Image01.jpeg" alt="" 
                 className="profileCoverImg"
                />
-               <img
-                src="assets/monster/Icon01.png" alt=""
-                className="profileUserImg" 
-               />
+              <img
+              src="/assets/monster/Icon01.png" alt=""
+              className="profileUserImg" 
+              />
             </div>
             <div className="profileInfo">
-              <div className="profileInfoName">
+              <div classNacd me="profileInfoName">
                 Yamato
               </div>
               <div className="profileInfoDesc">
