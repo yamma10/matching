@@ -75,7 +75,8 @@ router.delete("/teacher/:id", async (req, res) => {
 router.get("/student/:id", async (req, res) => {
   try {
     const student = await Student.findById(req.params.id);
-    res.status(200).json(student);
+    const { password, updateAt, ...other } = student._doc;
+    res.status(200).json(other);
   } catch(err) {
     return res.status(500).json(err);
   }
@@ -86,11 +87,11 @@ router.get("/student/:id", async (req, res) => {
 router.get("/teacher/:id", async (req, res) => {
   try {
     const teacher = await Teacher.findById(req.params.id);
-    res.status(200).json(teacher);
+    const { password, updateAt, ...other } = teacher._doc;
+    res.status(200).json(other);
   } catch(err) {
     return res.status(500).json(err);
   }
-
 })
 
 module.exports = router;

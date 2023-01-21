@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
+const router = require("../routes/users");
 
+//投稿を作成する
 const PostSchema = new mongoose.Schema({
   //誰が投稿したのかという情報
   userId: {
@@ -23,6 +25,8 @@ const PostSchema = new mongoose.Schema({
 },
 { timestamps: true }
 );
+
+
 
 //これを書くことによってほかのファイルでも使えるようにする
 module.exports = mongoose.model("Post", PostSchema);
