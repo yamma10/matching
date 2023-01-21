@@ -5,9 +5,7 @@ import "./ProfileDesc.css"
 //文字数に制限を設ける
 // 一言の文字数は300字までにする
 export default function ProfileDesc({state}) {
-  if(state) {
-    console.log("ok")
-  }
+  
   // ユーザが教える側か教えられる側かでここは変わる
   const studentdesc = () => {
     return (
@@ -37,9 +35,6 @@ export default function ProfileDesc({state}) {
         <div className="type">
           授業形態:<br/>      
         </div>
-        {/* <div className="type">
-          一言:<br/>
-        </div> */}
       </>
     )
   }
