@@ -5,6 +5,10 @@
   border-radius: 10px;
 }
 
+textarea {
+  resize: none;
+}
+
 .shareWrapper {
   padding: 10px;
 }
@@ -33,8 +37,12 @@
   outline: none;
 }
 
+.shareInput::placeholder {
+  font-size: larger;
+}
+
 .shareHr {
-  margin: 20px;
+  margin: 10px;
 }
 
 .shareButtons {

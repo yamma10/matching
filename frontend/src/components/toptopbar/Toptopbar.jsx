@@ -1,33 +1,33 @@
-import React from 'react'
-import "./Toptopbar.css"
+
+import styles from "./Toptopbar.module.css"
 import { Search } from "@mui/icons-material"
 
 export default function Toptopbar() {
   return (
-    <div className='topbarContainer'>
-      <div className="topbarLeft">
-        <span className="logo">タイトル</span>
+    <div className={styles.topbarContainer}>
+      <div className={styles.topbarLeft}>
+        <span className={styles.logo}>タイトル</span>
       </div>
-      <div className="topbarCenter">
-        <div className="searchbar">
-          <Search className="searchIcon"/>
+      <div className={styles.topbarCenter}>
+        <div className={styles.searchbar}>
+          <Search className={styles.searchIcon}/>
           <input
             type="text" 
-            className="searchInput"
+            className={styles.searchInput}
             placeholder='キーワードを入力してください' />
         </div>
       </div>
-      <div className="topbarRight">
-        <div className="topbarItemIcons">
-          <div className="topbarIconItem">
-            <span className="loginButton">
+      <div className={styles.topbarRight}>
+        <div className={styles.topbarItemIcons}>
+          <div className={styles.topbarIconItem}>
+            <span className={styles.loginButton}>
               ログイン
             </span>
             
           </div>
-          <div className="topbarIconItem">
-            <span className='registerButton'>新規登録</span>
-            
+          <div className={styles.topbarIconItem}>
+            <span className={styles.registerButton}>新規登録
+            </span>
           </div>
         </div>
       </div>

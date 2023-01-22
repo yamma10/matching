@@ -6,6 +6,7 @@ import "./Profile.css"
 import ProfileDesc from '../../components/profiledesc/ProfileDesc'
 
 export default function Profile() {
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <>
       <Topbar />
@@ -15,16 +16,16 @@ export default function Profile() {
           <div className="profileRightTop">
             <div className="profileCover">
               <img
-                src="assets/landscape/Image01.jpeg" alt="" 
+                src={PUBLIC_FOLDER + "/landscape/Image01.jpeg"} alt="" 
                 className="profileCoverImg"
                />
-               <img
-                src="assets/monster/Icon01.png" alt=""
-                className="profileUserImg" 
-               />
+              <img
+              src={ PUBLIC_FOLDER + "/monster/Icon01.png"} alt=""
+              className="profileUserImg" 
+              />
             </div>
             <div className="profileInfo">
-              <div className="profileInfoName">
+              <div classNacd me="profileInfoName">
                 Yamato
               </div>
               <div className="profileInfoDesc">

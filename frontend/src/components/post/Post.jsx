@@ -16,7 +16,7 @@ export default function Post() {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img src="assets/monster/Icon01.png" alt="" className="postProfileImg" />
+            <img src="/assets/monster/Icon01.png" alt="" className="postProfileImg" />
             <span className="postUsername">
               Yamato
             </span>
@@ -32,7 +32,7 @@ export default function Post() {
           <span className="postText">
             snsを自作中です。
           </span>
-          <img src="./assets/image/Image01.png" alt="" className="postImg" />
+          <img src="/assets/image/Image01.png" alt="" className="postImg" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">

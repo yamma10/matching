@@ -1,5 +1,6 @@
-import { Home, Person, Search, Settings } from '@mui/icons-material'
-import React from 'react'
+import { Home, Message, Person, Search, Settings } from '@mui/icons-material'
+import { Link } from "react-router-dom";
+import React from 'react';
 import "./Sidebar.css"
 
 export default function Sidebar() {
@@ -9,27 +10,37 @@ export default function Sidebar() {
         <ul className="sidebarList">
           <li className="sidebarListItem">
             <Home className='sidebarIcon' />
-            <span className="sidebarListItemText">
-              ホーム
-            </span>
+            <Link to="/home" style={{ textDecoration: "none", color: "black"}}>
+              <span className="sidebarListItemText">
+                ホーム
+              </span>
+            </Link>
+            
           </li>
           <li className="sidebarListItem">
-            <Search className='sidebarIcon' />
-            <span className="sidebarListItemText">
-              検索
-            </span>
+            <Message className='sidebarIcon' />
+            <Link to="/direct" style={{ textDecoration: "none", color: "black"}}>
+              <span className="sidebarListItemText">
+                メッセージ
+              </span>
+            </Link>
           </li>
           <li className="sidebarListItem">
             <Person className='sidebarIcon' />
-            <span className="sidebarListItemText">
-              プロフィール
-            </span>
+            <Link to="/profile/yamato" style={{ textDecoration: "none", color: "black"}}>
+              <span className="sidebarListItemText">
+                プロフィール
+              </span>
+            </Link>
+            
           </li>
           <li className="sidebarListItem">
             <Settings className='sidebarIcon' />
-            <span className="sidebarListItemText">
-              設定
-            </span>
+            <Link to="/settings" style={{ textDecoration: "none", color: "black"}}>
+              <span className="sidebarListItemText">
+                設定
+              </span>
+            </Link>
           </li>
         </ul>
         <hr className="sidebarHr" />

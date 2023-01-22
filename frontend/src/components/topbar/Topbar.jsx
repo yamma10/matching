@@ -1,12 +1,18 @@
 import React from 'react'
 import { Chat, Notifications, Search } from "@mui/icons-material"
 import "./Topbar.css"
+import { Link } from "react-router-dom";
 
-export default function () {
+export default function Topbar() {
   return (
     <div className='topbarContainer'>
       <div className="topbarLeft">
-        <span className="logo">タイトル</span>
+        <Link to="/home" style={{ textDecoration: "none" }}>
+          <span className="logo">
+            タイトル
+          </span> 
+        </Link>
+        
       </div>
       <div className="topbarCenter">
         <div className="searchbar">
