@@ -5,6 +5,10 @@
   border-radius: 10px;
 }
 
+textarea {
+  resize: none;
+}
+
 .shareWrapper {
   padding: 10px;
 }
