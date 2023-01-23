@@ -1,4 +1,4 @@
-import { Home, Message, Person, Search, Settings } from '@mui/icons-material'
+import { Home, Message, Person, Settings } from '@mui/icons-material'
 import { Link } from "react-router-dom";
 import React from 'react';
 import "./Sidebar.css"
