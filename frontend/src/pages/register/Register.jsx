@@ -91,16 +91,16 @@ export default function Register() {
           <h3 className={styles.loginLogo}>タイトル</h3>
         </div>
         {/* ここからTabで囲む */}
-        <Tabs>
+        <Tabs style={{textAlign: 'center'}}>
           <TabList>
-            <Tab>教師登録</Tab>
             <Tab>生徒登録</Tab>
+            <Tab>教師登録</Tab>
           </TabList>
           <TabPanel>
-            <TeacherRegister />
+            <StudentRegister />
           </TabPanel>
           <TabPanel>
-            <StudentRegister />
+            <TeacherRegister />
           </TabPanel>
         </Tabs>
       </div>
