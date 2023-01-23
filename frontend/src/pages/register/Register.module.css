@@ -7,6 +7,14 @@
   align-items: center;
   justify-content: center;
 }
+/* 
+.react-tabs {
+  text-align: center;
+}
+
+.react-tabs__tab-list {
+  margin: 0 auto;
+} */
 
 .loginWrapper {
   width: 70%;
