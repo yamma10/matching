@@ -1,27 +1,52 @@
 import { Favorite, MoreVert } from '@mui/icons-material'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./Post.css"
+import axios from "axios"
+import {format} from "timeago.js";
+import { Link } from 'react-router-dom';
 
-export default function Post() {
-  const [like, setLike ] = useState(0);
+export default function Post({ post }) {
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  const [like, setLike ] = useState(post.likes.length);
   const [ isLiked, setIsLiked ] = useState(false);
+  const [user, setUser] = useState({});
+
+  
+  useEffect(() => {
+    const fetchUser = async () => {
+      const response = await axios.get(`/users?userId=${post.userId}`);
+      // console.log(response);
+      setUser(response.data);
+    };
+    fetchUser();
+  }, []);
 
   const handleLike = () => {
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   }
+  
 
   return (
     <div className='post'>
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <img src="/assets/monster/Icon01.png" alt="" className="postProfileImg" />
+            <Link to={`/profile/${user.username}`}>
+              <img 
+                src={
+                  user.profilePicture ?
+                  PUBLIC_FOLDER + user.profilePicture : PUBLIC_FOLDER + "/person/noAvatar.png"
+                } 
+                alt="" className="postProfileImg" 
+              />
+            </Link>
             <span className="postUsername">
-              Yamato
+              {user.username}
             </span>
             <span className="postDate">
-              5分前
+              {format(post.createdAt)}
             </span>
           </div>
           <div className="postTopRight">
@@ -30,9 +55,9 @@ export default function Post() {
         </div>
         <div className="postCenter">
           <span className="postText">
-            snsを自作中です。
+            {post.desc}
           </span>
-          <img src="/assets/image/Image01.png" alt="" className="postImg" />
+          <img src={PUBLIC_FOLDER + post.img} alt="" className="postImg" />
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
@@ -40,7 +65,7 @@ export default function Post() {
               () => handleLike()
             }/>
             <span className="postLikeCounter">
-              {like}人がいいねを押しました
+              {post.likes.length}人がいいねを押しました
             </span>
           </div>
           <div className="postBottomRight">

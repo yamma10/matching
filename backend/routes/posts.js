@@ -1,11 +1,8 @@
-// 投稿に関するAPI
 const router = require("express").Router();
-const { SchemaTypes } = require("mongoose");
 const Post = require("../models/Post");
 const Student = require("../models/Student");
-const { listeners } = require("../models/Teacher");
 const Teacher = require("../models/Teacher");
-
+// 投稿に関するAPI
 //投稿を作成する
 router.post("/", async (req, res) => {
   const newPost = new Post(req.body);
@@ -72,12 +69,12 @@ router.put("/:id/like", async(req, res) => {
 
 // タイムラインの投稿を取得
 // タイムラインに表示されるのは同じ市か、methodが同じ人の投稿（授業形態がオンラインかどうか)
-router.get("/timeline/all", async (req, res) => {
+router.get("/timeline/:userId", async (req, res) => {
   try {
-    const currentStudent = await Student.findById(req.body.userId);
+    const currentStudent = await Student.findById(req.params.userId);
     
     if( !currentStudent) {
-      const currentTeacher = await Teacher.findById(req.body.userId);
+      const currentTeacher = await Teacher.findById(req.params.userId);
 
       //同じ市に住んでいるか、オンラインで教えられる教師を取り出す
       const samecityTeachers = await Teacher.find({$or: [
@@ -121,5 +118,16 @@ router.get("/timeline/all", async (req, res) => {
     return res.status(500).json(err);
   }
 })
+
+//プロフィール専用のタイムラインの取得
+router.get("/profile/:username", async (req, res) => {
+  try {
+    const currentUser = await Teacher.findOne({username: req.params.username});
+    const posts = await Post.find({ userId: currentUser._id});
+    return res.status(200).json(posts);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
 
 module.exports = router;

@@ -72,26 +72,61 @@ router.delete("/teacher/:id", async (req, res) => {
 
 // ユーザー情報の取得
 // 学生
-router.get("/student/:id", async (req, res) => {
+// router.get("/student/:id", async (req, res) => {
+//   try {
+//     const student = await Student.findById(req.params.id);
+//     const { password, updateAt, ...other } = student._doc;
+//     res.status(200).json(other);
+//   } catch(err) {
+//     return res.status(500).json(err);
+//   }
+
+// })
+
+//クエリで学生ユーザー情報を取得
+// router.get("student/", async (req, res) => {
+//   const userId = req.query.userId;
+//   const username = req.query.username;
+//   try {
+//     const student = userId
+//      ? await Student.findById(userId)
+//      : await Student.findOne({ username: username });
+
+//     const { password, updateAt, ...other } = student._doc;
+//     res.status(200).json(other);
+//   } catch(err) {
+//     return res.status(500).json(err);
+//   }
+
+// })
+
+
+// 教師
+// router.get("/teacher/:id", async (req, res) => {
+//   try {
+//     const teacher = await Teacher.findById(req.params.id);
+//     const { password, updateAt, ...other } = teacher._doc;
+//     res.status(200).json(other);
+//   } catch(err) {
+//     return res.status(500).json(err);
+//   }
+// })
+
+//クエリで教師ユーザー情報を取得
+router.get("/", async (req, res) => {
+  const userId = req.query.userId;
+  const username = req.query.username;
   try {
-    const student = await Student.findById(req.params.id);
+    const student = userId
+     ? await Teacher.findById(userId)
+     : await Teacher.findOne({ username: username });
+
     const { password, updateAt, ...other } = student._doc;
     res.status(200).json(other);
   } catch(err) {
     return res.status(500).json(err);
   }
 
-})
-
-// 教師
-router.get("/teacher/:id", async (req, res) => {
-  try {
-    const teacher = await Teacher.findById(req.params.id);
-    const { password, updateAt, ...other } = teacher._doc;
-    res.status(200).json(other);
-  } catch(err) {
-    return res.status(500).json(err);
-  }
 })
 
 module.exports = router;
