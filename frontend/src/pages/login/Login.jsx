@@ -4,25 +4,52 @@ import { Link } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import 'react-tabs/style/react-tabs.css';
+import { useRef } from 'react';
+import { studentLoginCall, teacherLoginCall } from '../../actionCalls';
+import { useContext } from 'react';
+import { AuthContext } from '../../state/AuthContext';
 
 export default function Login() {
 
+
   const StudentLogin = () => {
+    const email = useRef();
+    const password = useRef();
+
+    const { user, isFetching, error, dispatch} = useContext(AuthContext);
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      studentLoginCall(
+        {
+          email: email.current.value,
+          password: password.current.value,
+        }, 
+        dispatch
+      );
+    };
+
+
     return (
       <div className="loginBottom">
-          <div className="loginBox">
+          <form className="loginBox" onSubmit={(e) => handleSubmit(e)}>
             <p className="loginMsg">
               ログインはこちらから
             </p>
             <input
-              type="text"
+              type="email"
               className="loginInput"
-              placeholder="Eメールアドレス"
+              placeholder="メールアドレス"
+              required
+              ref={email}
             />
             <input
-              type="text"
+              type="password"
               className="loginInput"
               placeholder="パスワード"
+              required
+              minLength="6"
+              ref={password}
             />
             <button className="loginButton">
               ログイン
@@ -32,27 +59,47 @@ export default function Login() {
                 アカウント作成
               </button>
             </Link>
-          </div>
+          </form>
         </div>
     )
   }
 
   const TeacherLogin = () => {
+    const email = useRef();
+    const password = useRef();
+    const { user, isFetching, error, dispatch} = useContext(AuthContext);
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      teacherLoginCall(
+        {
+          email: email.current.value,
+          password: password.current.value,
+        }, 
+        dispatch
+      );
+    };
+
     return (
       <div className="loginBottom">
-          <div className="loginBox">
+          <form className="loginBox" onSubmit={(e) => handleSubmit(e)}>
             <p className="loginMsg">
               ログインはこちらから
             </p>
             <input
-              type="text"
+              type="email"
               className="loginInput"
-              placeholder="Eメールアドレス"
+              placeholder="メールアドレス"
+              required
+              ref={email}
             />
             <input
-              type="text"
+              type="password"
               className="loginInput"
               placeholder="パスワード"
+              required
+              minLength="6"
+              ref={password}
             />
             <button className="loginButton">
               ログイン
@@ -62,7 +109,7 @@ export default function Login() {
                 アカウント作成
               </button>
             </Link>
-          </div>
+          </form>
         </div>
     )
   }

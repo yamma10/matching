@@ -1,54 +1,119 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import styles from "./Register.module.css"
 import { Link } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import 'react-tabs/style/react-tabs.css';
+import axios from 'axios';
 
 export default function Register() {
+
+  
+
   const  TeacherRegister = () => {
-    return (
-      <div className={styles.loginBottom}>
-          <div className={styles.loginBox}>
-            <p className={styles.loginMsg}>
-              教師新規登録はこちら
-            </p>
-            <input
-              type="text"
-              className={styles.loginInput}
-              placeholder="ユーザー名"
-            />
-            <input
-              type="text"
-              className={styles.loginInput}
-              placeholder="メールアドレス"
-            />
-            <input
-              type="text"
-              className={styles.loginInput}
-              placeholder="パスワード"
-            />
-            <input
-              type="text"
-              className={styles.loginInput}
-              placeholder="確認用パスワード"
-            />
-            <button className={styles.loginButton}>
-              サインアップ
+
+    const username = useRef();
+    const email = useRef();
+    const password = useRef();
+    const passwordConfirmation = useRef();
+
+    const handleSubmit = async(e) => {
+      e.preventDefault();
+
+      //パスワードと確認用パスワードがあっているか確認
+      if (password.current.value !== passwordConfirmation.current.value) {
+        passwordConfirmation.current.setCustomValidity("パスワードが違います");
+      } else {
+          try {
+            
+            const teacher = {
+              username: username.current.value,
+              email: email.current.value,
+              password: password.current.value
+            };
+            //registerAPI
+            await axios.post("auth/teacher", teacher)
+          } catch (err) {
+            console.log(err);
+          }
+        }
+    };
+    
+  return (
+    <div className={styles.loginBottom}>
+        <form className={styles.loginBox} onSubmit={(e) => handleSubmit(e)}>
+          <p className={styles.loginMsg}>
+            教師新規登録はこちら
+          </p>
+          <input
+            type="text"
+            className={styles.loginInput}
+            placeholder="ユーザー名"
+            required
+            ref={username}
+          />
+          <input
+            type="email"
+            className={styles.loginInput}
+            placeholder="メールアドレス"
+            required
+            ref={email}
+          />
+          <input
+            type="password"
+            className={styles.loginInput}
+            placeholder="パスワード"
+            required
+            ref={password}
+          />
+          <input
+            type="password"
+            className={styles.loginInput}
+            placeholder="確認用パスワード"
+            ref={passwordConfirmation}
+          />
+          <button className={styles.loginButton} >
+            サインアップ
+          </button>
+          <Link to="/login"  >
+            <button className={styles.loginRegisterButton}>
+              ログイン
             </button>
-            <Link to="/login"  >
-              <button className={styles.loginRegisterButton}>
-                ログイン
-              </button>
-            </Link>
-          </div>
-        </div>
+          </Link>
+        </form>
+      </div>
     )
   }
   const  StudentRegister = () => {
+    const username = useRef();
+    const email = useRef();
+    const password = useRef();
+    const passwordConfirmation = useRef();
+
+    const handleSubmit = async(e) => {
+      e.preventDefault();
+        //パスワードと確認用パスワードがあっているか確認
+      if (password.current.value !== passwordConfirmation.current.value) {
+        passwordConfirmation.current.setCustomValidity("パスワードが違います");
+      } else {
+          try {
+            
+            const student = {
+              username: username.current.value,
+              email: email.current.value,
+              password: password.current.value
+            };
+            //registerAPI
+            await axios.post("auth/student", student)
+          } catch (err) {
+            console.log(err);
+          }
+        }
+    };
+
     return (
       <div className={styles.loginBottom}>
-          <div className={styles.loginBox}>
+          <form className={styles.loginBox} onSubmit={(e) => handleSubmit(e)}>
             <p className={styles.loginMsg}>
               生徒新規登録はこちら
             </p>
@@ -56,31 +121,41 @@ export default function Register() {
               type="text"
               className={styles.loginInput}
               placeholder="ユーザー名"
+              required
+              ref={username}
             />
             <input
-              type="text"
+              type="email"
               className={styles.loginInput}
               placeholder="メールアドレス"
+              required
+              ref={email}
             />
             <input
-              type="text"
+              type="password"
               className={styles.loginInput}
               placeholder="パスワード"
+              required
+              minLength="6"
+              ref={password}
             />
             <input
-              type="text"
+              type="password"
               className={styles.loginInput}
               placeholder="確認用パスワード"
+              required
+              minLength="6"
+              ref={passwordConfirmation}
             />
-            <button className={styles.loginButton}>
+            <button className={styles.loginButton} onSubmit={(e) => handleSubmit(e)}>
               サインアップ
             </button>
             <Link to="/login"  >
-              <button className={styles.loginRegisterButton}>
+              <button className={styles.loginRegisterButton} >
                 ログイン
               </button>
             </Link>
-          </div>
+          </form>
         </div>
     )
   }

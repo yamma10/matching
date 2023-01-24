@@ -26,12 +26,14 @@ export default function Topbar() {
       <div className="topbarRight">
         <div className="topbarItemIcons">
           <div className="topbarIconItem">
-            <Chat />
-            <span className="topbarIconBadge">1</span>
+            <Link to="/direct" style={{ textDecoration: "none", color: "black"}} >
+              <Chat />
+            </Link>
+            {/* <span className="topbarIconBadge">1</span> */}
           </div>
           <div className="topbarIconItem">
-            <Notifications />
-            <span className="topbarIconBadge">2</span>
+            {/* <Notifications />
+            <span className="topbarIconBadge">2</span> */}
           </div>
           <img src="/assets/monster/Icon01.png" alt="" className="topbarImg" />
         </div>
