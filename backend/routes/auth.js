@@ -13,7 +13,7 @@ router.post("/student", async (req, res) => {
     });
 
     const student = await newStudent.save();
-    return res.status.json(student);
+    return res.status(200).json(student);
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -29,7 +29,8 @@ router.post("/teacher", async (req, res) => {
     });
 
     const teacher = await newTeacher.save();
-    return res.status.json(teacher);
+    console.log("ok")
+    return res.status(200).json(teacher);
   } catch (err) {
     return res.status(500).json(err);
   }

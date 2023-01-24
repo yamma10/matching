@@ -29,7 +29,6 @@ export default function Login() {
       );
     };
 
-    console.log(user);
 
     return (
       <div className="loginBottom">
@@ -80,8 +79,6 @@ export default function Login() {
         dispatch
       );
     };
-
-    console.log(user);
 
     return (
       <div className="loginBottom">
