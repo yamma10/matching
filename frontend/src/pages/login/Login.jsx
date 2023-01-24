@@ -5,6 +5,9 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import 'react-tabs/style/react-tabs.css';
 import { useRef } from 'react';
+import { studentLoginCall, teacherLoginCall } from '../../actionCalls';
+import { useContext } from 'react';
+import { AuthContext } from '../../state/AuthContext';
 
 export default function Login() {
 
@@ -13,9 +16,20 @@ export default function Login() {
     const email = useRef();
     const password = useRef();
 
+    const { user, isFetching, error, dispatch} = useContext(AuthContext);
+
     const handleSubmit = (e) => {
       e.preventDefault();
-    }
+      studentLoginCall(
+        {
+          email: email.current.value,
+          password: password.current.value,
+        }, 
+        dispatch
+      );
+    };
+
+    console.log(user);
 
     return (
       <div className="loginBottom">
@@ -54,10 +68,21 @@ export default function Login() {
   const TeacherLogin = () => {
     const email = useRef();
     const password = useRef();
+    const { user, isFetching, error, dispatch} = useContext(AuthContext);
 
     const handleSubmit = (e) => {
       e.preventDefault();
-    }
+      teacherLoginCall(
+        {
+          email: email.current.value,
+          password: password.current.value,
+        }, 
+        dispatch
+      );
+    };
+
+    console.log(user);
+
     return (
       <div className="loginBottom">
           <form className="loginBox" onSubmit={(e) => handleSubmit(e)}>

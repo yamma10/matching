@@ -1,6 +1,7 @@
 
 import styles from "./Toptopbar.module.css"
 import { Search } from "@mui/icons-material"
+import { Link } from "react-router-dom";
 
 export default function Toptopbar() {
   return (
@@ -20,14 +21,18 @@ export default function Toptopbar() {
       <div className={styles.topbarRight}>
         <div className={styles.topbarItemIcons}>
           <div className={styles.topbarIconItem}>
-            <span className={styles.loginButton}>
-              ログイン
-            </span>
+            <Link to="/login" style={{ textDecoration: "none", color: "white"}}>
+              <span className={styles.loginButton}>
+                ログイン
+              </span>
+            </Link>
             
           </div>
           <div className={styles.topbarIconItem}>
-            <span className={styles.registerButton}>新規登録
-            </span>
+            <Link to="/register" style={{ textDecoration: "none", color: "white"}}>
+              <span className={styles.registerButton}>新規登録
+              </span>
+            </Link>
           </div>
         </div>
       </div>
