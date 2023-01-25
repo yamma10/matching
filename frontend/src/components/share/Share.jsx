@@ -1,36 +1,67 @@
 import { Image } from '@mui/icons-material'
-import React from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import "./Share.css"
+import { AuthContext } from "../../state/AuthContext";
+import axios from 'axios';
 
 export default function Share() {
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  const { user } = useContext(AuthContext);
+  const desc = useRef();
+
+  const [file, setFile] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const newPost = {
+      userId: user._id,
+      desc: desc.current.value,
+    };
+
+    try {
+      await axios.post("/posts", newPost);
+      window.location.reload();
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img src="/assets/monster/Icon01.png" alt="" className="shareProfileImg" />
-          <textarea cols="20" rows="5" className="shareInput" placeholder='投稿内容'></textarea>
-          {/* <input
-            type="text" 
-            className="shareInput"
-            placeholder="投稿内容"
-          /> */}
+          <img src={
+            user.profilePicture
+              ? PUBLIC_FOLDER + user.profilePicture
+              : PUBLIC_FOLDER + "/person/noAvatar.png"
+          }alt="" className="shareProfileImg" />
+          <textarea cols="20" rows="5" className="shareInput" placeholder='投稿内容' ref={desc} ></textarea>
         </div>
         <hr className="shareHr" />
-        <div className="shareButtons">
+        <form className="shareButtons" onSubmit={(e) => handleSubmit(e)}>
           <div className="shareOptions">
-            <div className="shareOption">
+            <label className="shareOption" htmlFor="file">
               <Image
                 className="shareIcon" htmlColor='blue'
                 />
               <span className="shareOptionText">
                 写真
               </span>
-            </div>
+              <input
+                 type="file" 
+                 id ="file" 
+                 accept=".png, .jpeg, .jpg" 
+                 style={{display: "none"}}
+                 onChange={(e) => setFile(e.target.fles[0])}
+              />
+            </label>
           </div>
-          <button className="shareButton">
+          <button className="shareButton" type="submit">
             投稿
           </button>
-        </div>
+        </form>
       </div>
     </div>
   )

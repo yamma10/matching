@@ -4,6 +4,8 @@ import "./Post.css"
 import axios from "axios"
 import {format} from "timeago.js";
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../../state/AuthContext';
 
 export default function Post({ post }) {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -11,6 +13,8 @@ export default function Post({ post }) {
   const [like, setLike ] = useState(post.likes.length);
   const [ isLiked, setIsLiked ] = useState(false);
   const [user, setUser] = useState({});
+
+  const { user: loginUser } = useContext(AuthContext);
 
   
   useEffect(() => {
@@ -22,7 +26,12 @@ export default function Post({ post }) {
     fetchUser();
   }, []);
 
-  const handleLike = () => {
+  const handleLike = async () => {
+    try {
+      //いいねのAPIを叩いていく
+      await axios.put(`/posts/${post._id}/like`, {userId: loginUser._id});
+    } catch (err) {
+    }
     setLike(isLiked ? like - 1 : like + 1);
     setIsLiked(!isLiked);
   }
@@ -36,8 +45,9 @@ export default function Post({ post }) {
             <Link to={`/profile/${user.username}`}>
               <img 
                 src={
-                  user.profilePicture ?
-                  PUBLIC_FOLDER + user.profilePicture : PUBLIC_FOLDER + "/person/noAvatar.png"
+                  user.profilePicture 
+                  ? PUBLIC_FOLDER + user.profilePicture 
+                  : PUBLIC_FOLDER + "/person/noAvatar.png"
                 } 
                 alt="" className="postProfileImg" 
               />
@@ -57,7 +67,9 @@ export default function Post({ post }) {
           <span className="postText">
             {post.desc}
           </span>
-          <img src={PUBLIC_FOLDER + post.img} alt="" className="postImg" />
+          {post.img 
+          ? <img src={ PUBLIC_FOLDER + post.img}  className="postImg" alt="" />
+          :  ""}
         </div>
         <div className="postBottom">
           <div className="postBottomLeft">
@@ -65,7 +77,7 @@ export default function Post({ post }) {
               () => handleLike()
             }/>
             <span className="postLikeCounter">
-              {post.likes.length}人がいいねを押しました
+              {like}人がいいねを押しました
             </span>
           </div>
           <div className="postBottomRight">
