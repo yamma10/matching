@@ -6,6 +6,8 @@ const Student = require("../models/Student");
 //生徒ユーザー登録
 router.post("/student", async (req, res) => {
   try {
+    const check = await Student.findOne({email: req.body.email});
+    if (check) return res.status(404).send("このユーザーは存在しています");
     const newStudent = await new Student({
       username: req.body.username,
       email: req.body.email,
@@ -22,6 +24,8 @@ router.post("/student", async (req, res) => {
 //教師ユーザー登録
 router.post("/teacher", async (req, res) => {
   try {
+    const check = await Teacher.findOne({email: req.body.email});
+    if (check) return res.status(404).send("このユーザーは存在しています");
     const newTeacher = await new Teacher({
       username: req.body.username,
       email: req.body.email,

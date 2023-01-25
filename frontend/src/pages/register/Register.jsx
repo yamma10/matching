@@ -33,8 +33,10 @@ export default function Register() {
             };
             //registerAPI
             await axios.post("auth/teacher", teacher)
-          } catch (err) {
-            console.log(err);
+          } catch (error) {
+            if (error.response && error.response.data) {
+              alert(error.response.data);
+            }
           }
         }
     };
@@ -105,8 +107,10 @@ export default function Register() {
             };
             //registerAPI
             await axios.post("auth/student", student)
-          } catch (err) {
-            console.log(err);
+          } catch (error) {
+            if (error.response && error.response.data) {
+              alert(error.response.data);
+            }
           }
         }
     };

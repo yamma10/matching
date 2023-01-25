@@ -10,7 +10,9 @@ export default function Timeline({ username }) {
   
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = username ? await axios.get(`/posts/profile/${username}`) :await axios.get("/posts/timeline/63cb6807a1dccc840600291b");
+      const response = username 
+      ? await axios.get(`/posts/profile/${username}`) 
+      : await axios.get("/posts/timeline/63cb6807a1dccc840600291b");
       // console.log(response);
       setPosts(response.data);
     };
