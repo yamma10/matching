@@ -5,10 +5,9 @@ import AuthReducer from "./AuthReducer";
 const initialState = {
   // user: null,
   user: {
-
-    _id: "63cb6815a1dccc840600291d",
-    username: "大和",
-    email: "yamato@email.com",
+    _id: "63cb6820a1dccc840600291f",
+    username: "john",
+    email: "john@email.com",
     password: "123456",
     profilePicture: "/monster/Icon01.png",
     coverPicture: "",

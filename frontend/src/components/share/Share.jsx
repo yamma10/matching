@@ -20,6 +20,23 @@ export default function Share() {
       desc: desc.current.value,
     };
 
+    if(file) {
+      //キーとバリューを合わせてデータとして持っておく
+      const data = new FormData();
+      //同じ画像がアップロードされることも考えられるので現在時刻を付与する
+      const fileName = Date.now() + file.name;
+      data.append("name", fileName);
+      data.append("file", file);
+      newPost.img = fileName;
+
+      try {
+        //画像アップロード
+        await axios.post("/upload", data);
+      } catch(err) {
+        console.log(err);
+      }
+    }
+
     try {
       await axios.post("/posts", newPost);
       window.location.reload();
@@ -54,7 +71,7 @@ export default function Share() {
                  id ="file" 
                  accept=".png, .jpeg, .jpg" 
                  style={{display: "none"}}
-                 onChange={(e) => setFile(e.target.fles[0])}
+                 onChange={(e) => setFile(e.target.files[0])}
               />
             </label>
           </div>
