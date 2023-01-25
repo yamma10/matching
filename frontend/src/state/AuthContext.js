@@ -3,7 +3,20 @@ import AuthReducer from "./AuthReducer";
 
 //最初のユーザー状態
 const initialState = {
-  user: null,
+  // user: null,
+  user: {
+
+    _id: "63cb6815a1dccc840600291d",
+    username: "大和",
+    email: "yamato@email.com",
+    password: "123456",
+    profilePicture: "",
+    coverPicture: "",
+    subject: "",
+    city: "saga",
+    method: false,
+    type:  false,
+  },
   isFetching: false,
   error: false,
 };
