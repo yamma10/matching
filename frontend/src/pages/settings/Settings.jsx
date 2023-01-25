@@ -1,17 +1,29 @@
-import React, { useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
+import { AuthContext } from '../../state/AuthContext';
 import "./Settings.css"
 
 //やり残し
 //requiredつける
 //ユーザー情報持ってくる
 
-export default function Settings({state}) {
-  // 状態を管理するための変数を定義
-  const [meetingType, setMeetingType] = useState('対面');
+export default function Settings() {
+
+  const { user } = useContext(AuthContext)
+
+  const [type, setType] = useState(user.type);
+  const [username, setuserName] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState(user.password);
+  const [city, setCity] = useState(user.city);
+
+  const [subject, setSubject] = useState(user.subject);
+
 
   // プルダウンの選択値を更新する関数
-  const handleChange = event => {
-    setMeetingType(event.target.value);
+  const handletypeChange = (e) => {
+    e.preventDefault();
+    setType(e.target.value);
+    
   };
 
   const SettingTeacher = () => {
@@ -21,65 +33,106 @@ export default function Settings({state}) {
           <h1 className="settingTop">
             設定
           </h1>
-          <div className="settingBottom">
+          <form className="settingBottom">
             <div className="settingItems">
               <div className='settingItem' >
                 <p>名前</p>
                 <input
                   type="text"
                   className="settingInput"
+                  required
+                  onChange={(e) => setuserName(e.target.value)}
+                  value={username}
                 />
               </div>   
               <div className='settingItem' >
                 <p>メールアドレス</p>
                 <input
-                  type="text"
+                  type="email"
                   className="settingInput"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                 />
               </div>
               <div className='settingItem' >
-                <p>パスワード変更</p>
+                <p>パスワード</p>
                 <input
-                  type="text"
-                  className="settingInput"  
-                />
-              </div>
-              <div className='settingItem' >
-                <p>確認用変更パスワード</p>
-                <input
-                  type="text"
-                  className="settingInput"
-                  placeholder="確認用パスワード"
+                  type="password"
+                  className="settingInput" 
+                  required
+                  minLength="6"
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                 />
               </div>
               <div className='settingItem' >
                 <p>住まい（市まで）</p>
-                <input
-                  type="text"
-                  className="settingInput"
-                />
+                <select 
+                className='settingInput'
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                >
+                  <option value={"saga"}>
+                    佐賀市
+                  </option>
+                  <option value={"karatsu"}>
+                    唐津市
+                  </option>
+                  <option value={"tosu"}>
+                    鳥栖市
+                  </option>
+                  <option value={"taku"}>
+                    多久市
+                  </option>
+                  <option value={"imari"}>
+                    伊万里市
+                  </option>
+                  <option value={"takeo"}>
+                    武雄市
+                  </option>
+                  <option value={"kashima"}>
+                    鹿島市
+                  </option>
+                  <option value={"ogi"}>
+                    小城市
+                  </option>
+                  <option value={"ureshino"}>
+                    嬉野市
+                  </option>
+                  <option value={"kanzaki"}>
+                    神崎市
+                  </option>
+                </select>
               </div>
               <div className='settingItem' >
                 <p>対応可能な教科</p>
                 <input
                   type="text"
                   className="settingInput"
+                  onChange={(e) => setSubject(e.target.value)}
+                  value={subject}
                 />
               </div>
               <div className='settingItem' >
                 <p>授業形態</p>
-                <select value={meetingType} onChange={handleChange}>
-                  <option value="face-to-face">対面</option>
-                  <option value="any">どちらでも可能</option>
-                  <option value="online">オンライン</option>
-                  
+                <select
+                 className='settingInput'
+                 value={type}
+                 onChange={(e) => setType(e.target.value)}>
+                  <option value={false}>
+                     対面
+                  </option>
+                  <option value={true}>
+                    オンラインも可能
+                  </option>     
                 </select>
               </div>
               <button className="loginButton">
                 変更する
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     )
@@ -92,64 +145,82 @@ export default function Settings({state}) {
           <h1 className="settingTop">
             設定
           </h1>
-          <div className="settingBottom">
+          <form className="settingBottom">
             <div className="settingItems">
               <div className='settingItem' >
                 <p>名前</p>
                 <input
                   type="text"
                   className="settingInput"
+                  onChange={(e) => setuserName(e.target.value)}
+                  value={username}
                 />
               </div>   
               <div className='settingItem' >
                 <p>メールアドレス</p>
                 <input
-                  type="text"
+                  type="email"
                   className="settingInput"
+                  onChange={(e) => setEmail(e.target.value)}
+                  value={email}
                 />
               </div>
               <div className='settingItem' >
-                <p>パスワード変更</p>
+                <p>パスワード</p>
                 <input
-                  type="text"
-                  className="settingInput"  
-                />
-              </div>
-              <div className='settingItem' >
-                <p>確認用変更パスワード</p>
-                <input
-                  type="text"
-                  className="settingInput"
-                  placeholder="確認用パスワード"
+                  type="password"
+                  className="settingInput" 
+                  required
+                  minLength="6"  
                 />
               </div>
               <div className='settingItem' >
                 <p>住まい（市まで）</p>
-                <input
-                  type="text"
-                  className="settingInput"
-                />
-              </div>
-              <div className='settingItem' >
-                <p>教えてほしい教科</p>
-                <input
-                  type="text"
-                  className="settingInput"
-                />
+                <select 
+                className='settingInput'
+                >
+                  <option value={"saga"}>
+                    佐賀市
+                  </option>
+                  <option value={"karatsu"}>
+                    唐津市
+                  </option>
+                  <option value={"tosu"}>
+                    鳥栖市
+                  </option>
+                  <option value={"taku"}>
+                    多久市
+                  </option>
+                  <option value={"imari"}>
+                    伊万里市
+                  </option>
+                  <option value={"takeo"}>
+                    武雄市
+                  </option>
+                  <option value={"kashima"}>
+                    鹿島市
+                  </option>
+                  <option value={"ogi"}>
+                    小城市
+                  </option>
+                  <option value={"ureshino"}>
+                    嬉野市
+                  </option>
+                  <option value={"kanzaki"}>
+                    神崎市
+                  </option>
+                </select>
               </div>
               <div className='settingItem' >
                 <p>お探しの授業形態</p>
-                <select value={meetingType} onChange={handleChange}
-                className='settingInput'
+                <select value={type}
+                 onChange={(e) => setType(e.target.value)}
                 >
-                  <option value="face-to-face">
-                    対面
+                  <option value={false}>
+                     対面
                   </option>
-                  <option value="any">
-                    どちらでも可能
-                  </option>
-                  <option value="online">
-                    オンライン
+                  <option value={true}>
+                    オンラインも可能
                   </option>
                 </select>
               </div>
@@ -157,7 +228,7 @@ export default function Settings({state}) {
                 変更する
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     )
@@ -165,7 +236,7 @@ export default function Settings({state}) {
 
   return (
     <>
-      {state ? SettingTeacher() : SettingStudent()}
+      {user.type ? SettingTeacher() : SettingStudent()}
     </>
   )
 }
