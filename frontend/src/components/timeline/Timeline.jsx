@@ -31,6 +31,24 @@ export default function Timeline({ username }) {
     fetchPosts();
   }, [username, user._id]);
 
+  //usernameがあるとき・・・username==user.username
+  //ないとき・・・typeがtrue
+  const judge = () => {
+    if(username){
+      if(username==user.username && user.type) {
+        return true;
+      }else {
+        return false;
+      }
+    } else {
+      if(user.type){
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
   const handlePageChange = (e) => {
     setCurrentPage(e.selected + 1);
   }
@@ -47,7 +65,7 @@ export default function Timeline({ username }) {
   return (
     <div className="timeline">
       <div className="timelineWrapper">
-        {user.type 
+        { judge()
         ? <Share />
         : ""
         }
@@ -56,7 +74,8 @@ export default function Timeline({ username }) {
           <Post post={post} key={post._id} />))
         }
       </div>
-      <Pagination
+      {posts 
+        ? <Pagination
         previousLabel={"前のページ"}
         nextLabel={"次のページ"}
         breakLabel={"..."}
@@ -69,6 +88,9 @@ export default function Timeline({ username }) {
         subContainerClassName={"pages pagination"}
         activeClassName={"active"}
       />
+        : ""
+      }
+      
     </div>
   )
 }

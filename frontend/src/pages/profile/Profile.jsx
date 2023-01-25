@@ -7,7 +7,7 @@ import ProfileDesc from '../../components/profiledesc/ProfileDesc'
 import axios from "axios"
 import { useParams } from "react-router-dom";
 
-export default function Profile() {
+export default function Profile({}) {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const [user, setUser] = useState({});
@@ -16,6 +16,7 @@ export default function Profile() {
   
   useEffect(() => {
     const fetchUser = async () => {
+      console.log("start")
       const response = await axios.get(`/users?username=${username}`);
       // console.log(response);
       setUser(response.data);
