@@ -24,7 +24,11 @@ export default function Timeline({ username }) {
   return (
     <div className="timeline">
       <div className="timelineWrapper">
-        <Share />
+        {user.type 
+        ? <Share />
+        : ""
+        }
+        
         {posts.map((post) => (
           <Post post={post} key={post._id} />))
         }
