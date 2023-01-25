@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import styles from "./Register.module.css"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import 'react-tabs/style/react-tabs.css';
@@ -16,6 +16,8 @@ export default function Register() {
     const email = useRef();
     const password = useRef();
     const passwordConfirmation = useRef();
+
+    const navigate = useNavigate();
 
     const handleSubmit = async(e) => {
       e.preventDefault();
@@ -33,6 +35,7 @@ export default function Register() {
             };
             //registerAPI
             await axios.post("auth/teacher", teacher)
+            navigate("/login");
           } catch (error) {
             if (error.response && error.response.data) {
               alert(error.response.data);
@@ -92,6 +95,8 @@ export default function Register() {
     const password = useRef();
     const passwordConfirmation = useRef();
 
+    const navigate = useNavigate();
+
     const handleSubmit = async(e) => {
       e.preventDefault();
         //パスワードと確認用パスワードがあっているか確認
@@ -107,6 +112,7 @@ export default function Register() {
             };
             //registerAPI
             await axios.post("auth/student", student)
+            navigate("/login")
           } catch (error) {
             if (error.response && error.response.data) {
               alert(error.response.data);
