@@ -15,7 +15,7 @@ const initialState = {
     subject: "",
     city: "saga",
     method: false,
-    type:  false,
+    type:  true,
   },
   isFetching: false,
   error: false,

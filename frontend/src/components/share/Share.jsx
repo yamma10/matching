@@ -1,5 +1,5 @@
 import { Image } from '@mui/icons-material'
-import React, { useContext, useRef } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import "./Share.css"
 import { AuthContext } from "../../state/AuthContext";
 import axios from 'axios';
@@ -9,6 +9,8 @@ export default function Share() {
 
   const { user } = useContext(AuthContext);
   const desc = useRef();
+
+  const [file, setFile] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,14 +42,21 @@ export default function Share() {
         <hr className="shareHr" />
         <form className="shareButtons" onSubmit={(e) => handleSubmit(e)}>
           <div className="shareOptions">
-            <div className="shareOption">
+            <label className="shareOption" htmlFor="file">
               <Image
                 className="shareIcon" htmlColor='blue'
                 />
               <span className="shareOptionText">
                 写真
               </span>
-            </div>
+              <input
+                 type="file" 
+                 id ="file" 
+                 accept=".png, .jpeg, .jpg" 
+                 style={{display: "none"}}
+                 onChange={(e) => setFile(e.target.fles[0])}
+              />
+            </label>
           </div>
           <button className="shareButton" type="submit">
             投稿
