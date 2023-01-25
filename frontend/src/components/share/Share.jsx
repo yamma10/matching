@@ -1,13 +1,22 @@
 import { Image } from '@mui/icons-material'
-import React from 'react'
+import React, { useContext } from 'react'
 import "./Share.css"
+import { AuthContext } from "../../state/AuthContext";
 
 export default function Share() {
+  const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  const { user } = useContext(AuthContext);
+
   return (
     <div className="share">
       <div className="shareWrapper">
         <div className="shareTop">
-          <img src="/assets/monster/Icon01.png" alt="" className="shareProfileImg" />
+          <img src={
+            user.profilePicture
+              ? PUBLIC_FOLDER + user.profilePicture
+              : PUBLIC_FOLDER + "/person/noAvatar.png"
+          }alt="" className="shareProfileImg" />
           <textarea cols="20" rows="5" className="shareInput" placeholder='投稿内容'></textarea>
         </div>
         <hr className="shareHr" />

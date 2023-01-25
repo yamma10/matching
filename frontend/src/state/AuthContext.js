@@ -10,7 +10,7 @@ const initialState = {
     username: "大和",
     email: "yamato@email.com",
     password: "123456",
-    profilePicture: "",
+    profilePicture: "/monster/Icon01.png",
     coverPicture: "",
     subject: "",
     city: "saga",
