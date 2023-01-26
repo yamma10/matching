@@ -21,7 +21,7 @@ export default function Timeline({ username }) {
       const response = username 
       ? await axios.get(`/posts/profile/${username}`) //プロフィールの場合
       : await axios.get(`/posts/timeline/${user._id}`);//ホームの場合
-      // console.log(response);
+      
       setPosts(
         response.data.sort((post1, post2) => {
         return new Date(post2.createdAt) - new Date(post1.createdAt);
@@ -29,7 +29,25 @@ export default function Timeline({ username }) {
       );
     };
     fetchPosts();
-  }, [username, user._id]);
+  }, [username]);
+
+  //usernameがあるとき・・・username==user.username
+  //ないとき・・・typeがtrue
+  const judge = () => {
+    if(username){
+      if(username==user.username && user.type) {
+        return true;
+      }else {
+        return false;
+      }
+    } else {
+      if(user.type){
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
 
   const handlePageChange = (e) => {
     setCurrentPage(e.selected + 1);
@@ -47,7 +65,7 @@ export default function Timeline({ username }) {
   return (
     <div className="timeline">
       <div className="timelineWrapper">
-        {user.type 
+        { judge()
         ? <Share />
         : ""
         }
@@ -56,7 +74,8 @@ export default function Timeline({ username }) {
           <Post post={post} key={post._id} />))
         }
       </div>
-      <Pagination
+      {posts 
+        ? <Pagination
         previousLabel={"前のページ"}
         nextLabel={"次のページ"}
         breakLabel={"..."}
@@ -69,6 +88,9 @@ export default function Timeline({ username }) {
         subContainerClassName={"pages pagination"}
         activeClassName={"active"}
       />
+        : ""
+      }
+      
     </div>
   )
 }

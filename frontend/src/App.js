@@ -25,7 +25,7 @@ function App() {
         <Route path="/settings" element={user ? <Settings /> : <Top />} />
         <Route path="/login" element={user ? <Navigate to="/home" /> : <Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/profile/:username" element={user ? <Profile /> : <Top />} />
+        <Route path="/profile/:id" element={user ? <Profile /> : <Top />} type="text/css"/>
         <Route path="/direct" element={user ? <Direct /> : <Top />} />
       </Routes>
     </Router>

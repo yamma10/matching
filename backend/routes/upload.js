@@ -2,6 +2,7 @@ const router = require("express").Router();
 const multer = require("multer");
 
 const storage = multer.diskStorage({
+  // 保存先を決定:public/imagesに保存する
   destination: (req, fle, cb) => {
     cb(null, "public/images");
   },

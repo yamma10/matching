@@ -8,9 +8,9 @@ const Student = require("../models/Student");
 //学生
 router.put("/student/:id", async (req, res) => {
   //params.idは:idの部分
-  if (req.body.userId === req.params.id) {
+  if (req.body._id === req.params.id) {
     try {
-      const student = await Student.findByIdAndUpdate(req.params.id, {
+      const student = await Student.findByIdAndUpdate(req.body._id, {
         $set: req.body,
       });
       res.status(200).json("ユーザー情報が更新されました")
@@ -25,9 +25,10 @@ router.put("/student/:id", async (req, res) => {
 //教師
 router.put("/teacher/:id", async (req, res) => {
   //params.idは:idの部分
-  if (req.body.userId === req.params.id) {
+  if (req.body._id === req.params.id) {
     try {
-      const teacher = await Teacher.findByIdAndUpdate(req.params.id, {
+      console.log("ok")
+      const teacher = await Teacher.findByIdAndUpdate(req.body._id, {
         $set: req.body,
       });
       res.status(200).json("ユーザー情報が更新されました")
@@ -84,21 +85,20 @@ router.delete("/teacher/:id", async (req, res) => {
 // })
 
 //クエリで学生ユーザー情報を取得
-// router.get("student/", async (req, res) => {
-//   const userId = req.query.userId;
-//   const username = req.query.username;
-//   try {
-//     const student = userId
-//      ? await Student.findById(userId)
-//      : await Student.findOne({ username: username });
+router.get("/student/:id", async (req, res) => {
+  const userId = req.query.id;
+  try {
+    const student = userId
+     ? await Student.findById(userId)
+     : await Student.findOne({ username: username });
 
-//     const { password, updateAt, ...other } = student._doc;
-//     res.status(200).json(other);
-//   } catch(err) {
-//     return res.status(500).json(err);
-//   }
+    
+    res.status(200).json(student);
+  } catch(err) {
+    return res.status(500).json(err);
+  }
 
-// })
+})
 
 
 // 教師
@@ -113,16 +113,15 @@ router.delete("/teacher/:id", async (req, res) => {
 // })
 
 //クエリで教師ユーザー情報を取得
-router.get("/", async (req, res) => {
-  const userId = req.query.userId;
-  const username = req.query.username;
+router.get("/teacher/:id", async (req, res) => {
+  const userId = req.params.id;
   try {
-    const student = userId
+    const teacher = userId
      ? await Teacher.findById(userId)
      : await Teacher.findOne({ username: username });
 
-    const { password, updateAt, ...other } = student._doc;
-    res.status(200).json(other);
+    
+    res.status(200).json(teacher);
   } catch(err) {
     return res.status(500).json(err);
   }

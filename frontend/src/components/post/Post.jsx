@@ -10,17 +10,20 @@ import { AuthContext } from '../../state/AuthContext';
 export default function Post({ post }) {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
+  
+
   const [like, setLike ] = useState(post.likes.length);
   const [ isLiked, setIsLiked ] = useState(false);
   const [user, setUser] = useState({});
 
+  //自分
   const { user: loginUser } = useContext(AuthContext);
 
   
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get(`/users?userId=${post.userId}`);
-      // console.log(response);
+      const response = await axios.get(`/users/teacher/${post.userId}`);
+      // console.log(response)
       setUser(response.data);
     };
     fetchUser();
@@ -42,7 +45,7 @@ export default function Post({ post }) {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`/profile/${user.username}`}>
+            <Link to={`/profile/${user._id}`}>
               <img 
                 src={
                   user.profilePicture 
