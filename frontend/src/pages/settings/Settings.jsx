@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useRef, useState } from 'react'
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../state/AuthContext';
 import "./Settings.css"
 
@@ -8,9 +8,13 @@ import "./Settings.css"
 //requiredつける
 //ユーザー情報持ってくる
 
-export default function Settings() {
 
+
+export default function Settings() {
   const { user } = useContext(AuthContext)
+
+  const navigation = useNavigate();
+
 
   const [method, setMethod] = useState(user.method);
   const [username, setuserName] = useState(user.username);
@@ -21,7 +25,7 @@ export default function Settings() {
   const [subject, setSubject] = useState(user.subject);
 
   // プロフィール画像
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState(user.profilePicture);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,7 +65,7 @@ export default function Settings() {
         await axios.put(`users/student/${user._id}`, newUser)
       }
       console.log("ok")
-      {<Navigate to="/home" />}
+      navigation("/home");
     } catch (err) {
       console.log(err);
     }
