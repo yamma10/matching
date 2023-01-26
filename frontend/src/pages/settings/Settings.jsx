@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useContext, useRef, useState } from 'react'
 import { AuthContext } from '../../state/AuthContext';
 import "./Settings.css"
@@ -18,6 +19,33 @@ export default function Settings() {
 
   const [subject, setSubject] = useState(user.subject);
 
+  // プロフィール画像
+  const [file, setFile] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if(file) {
+      //キーとバリューを合わせてデータとして持っておく
+      const data = new FormData();
+      //同じ画像がアップロードされることも考えられるので現在時刻を付与する
+      const fileName = Date.now() + file.name;
+      data.append("name", fileName);
+      data.append("file", file);
+
+      try {
+        //画像アップロード
+        await axios.post("/upload", data);
+        setFile(fileName);
+      } catch(err) {
+        console.log(err);
+      }
+    }
+
+    
+  }
+
+
 
   // プルダウンの選択値を更新する関数
   const handletypeChange = (e) => {
@@ -33,7 +61,7 @@ export default function Settings() {
           <h1 className="settingTop">
             設定
           </h1>
-          <form className="settingBottom">
+          <form className="settingBottom" onSubmit={(e) => handleSubmit(e)}>
             <div className="settingItems">
               <div className='settingItem' >
                 <p>名前</p>
@@ -112,6 +140,15 @@ export default function Settings() {
                   className="settingInput"
                   onChange={(e) => setSubject(e.target.value)}
                   value={subject}
+                />
+              </div>
+              <div className="settingItem">
+                <p>プロフィール画像を設定する</p>
+                <input
+                  type="file" 
+                  id ="file" 
+                  accept=".png, .jpeg, .jpg" 
+                  onChange={(e) => setFile(e.target.files[0])}
                 />
               </div>
               <div className='settingItem' >
