@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useContext, useRef, useState } from 'react'
+import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../../state/AuthContext';
 import "./Settings.css"
 
@@ -11,7 +12,7 @@ export default function Settings() {
 
   const { user } = useContext(AuthContext)
 
-  const [type, setType] = useState(user.type);
+  const [method, setMethod] = useState(user.method);
   const [username, setuserName] = useState(user.username);
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState(user.password);
@@ -32,27 +33,44 @@ export default function Settings() {
       const fileName = Date.now() + file.name;
       data.append("name", fileName);
       data.append("file", file);
+      setFile(fileName);
 
       try {
         //画像アップロード
         await axios.post("/upload", data);
-        setFile(fileName);
+        // setFile(fileName);
       } catch(err) {
         console.log(err);
       }
     }
 
+    try {
+      const newUser = {
+        userId: user._id,
+        profilePicture: file,
+        username: username,
+        email: email,
+        password: password,
+        city: city,
+        subject: subject,
+        method: method
+      }
+      if(user.type) {
+        await axios.put(`users/teacher/${user._id}`, newUser)
+      } else {
+        await axios.put(`users/student/${user._id}`, newUser)
+      }
+      console.log("ok")
+      {<Navigate to="/home" />}
+    } catch (err) {
+      console.log(err);
+    }
     
   }
 
 
 
-  // プルダウンの選択値を更新する関数
-  const handletypeChange = (e) => {
-    e.preventDefault();
-    setType(e.target.value);
-    
-  };
+  
 
   const SettingTeacher = () => {
     return (
@@ -155,8 +173,8 @@ export default function Settings() {
                 <p>授業形態</p>
                 <select
                  className='settingInput'
-                 value={type}
-                 onChange={(e) => setType(e.target.value)}>
+                 value={method}
+                 onChange={(e) => setMethod(e.target.value)}>
                   <option value={false}>
                      対面
                   </option>
@@ -250,8 +268,8 @@ export default function Settings() {
               </div>
               <div className='settingItem' >
                 <p>お探しの授業形態</p>
-                <select value={type}
-                 onChange={(e) => setType(e.target.value)}
+                <select value={method}
+                 onChange={(e) => setMethod(e.target.value)}
                 >
                   <option value={false}>
                      対面
