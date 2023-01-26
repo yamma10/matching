@@ -1,14 +1,15 @@
 import axios from 'axios';
 import React, { useContext, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { studentUpdate, teacherUpdate } from '../../actionCalls';
 import { AuthContext } from '../../state/AuthContext';
 import "./Settings.css"
 
 
-//反映させるにはログインしなおす
+
 
 export default function Settings() {
-  const { user } = useContext(AuthContext)
+  const { user, dispatch } = useContext(AuthContext)
 
   const navigation = useNavigate();
 
@@ -47,21 +48,26 @@ export default function Settings() {
 
     try {
       const newUser = {
-        userId: user._id,
+        _id: user._id,
         profilePicture: file,
         username: username,
         email: email,
         password: password,
         city: city,
         subject: subject,
-        method: method
+        method: method,
+        type: user.type
       }
       if(user.type) {
-        await axios.put(`users/teacher/${user._id}`, newUser)
+        console.log(newUser._id);
+        await axios.put(`users/teacher/${newUser._id}`, newUser);
+        
+        localStorage.setItem("user", JSON.stringify(newUser));
       } else {
-        await axios.put(`users/student/${user._id}`, newUser)
+        await axios.put(`users/student/${user._id}`, newUser);
+        // studentUpdate(newUser,dispatch);
       }
-      console.log("ok")
+      
       navigation("/home");
     } catch (err) {
       console.log(err);
@@ -202,7 +208,7 @@ export default function Settings() {
           <h1 className="settingTop">
             設定
           </h1>
-          <form className="settingBottom">
+            <form className="settingBottom" onSubmit={(e) => handleSubmit(e)}>
             <div className="settingItems">
               <div className='settingItem' >
                 <p>名前</p>
@@ -229,6 +235,8 @@ export default function Settings() {
                   className="settingInput" 
                   required
                   minLength="6"  
+                  onChange={(e) => setPassword(e.target.value)}
+                  value={password}
                 />
               </div>
               <div className='settingItem' >
@@ -271,7 +279,7 @@ export default function Settings() {
               <div className='settingItem' >
                 <p>お探しの授業形態</p>
                 <select value={method}
-                 onChange={(e) => setMethod(e.target.value)}
+                 onChange={(e) => setMethod(e.target.value)}className='settingInput'
                 >
                   <option value={false}>
                      対面

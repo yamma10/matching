@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import React, { useContext } from 'react';
 import "./Sidebar.css"
 import { AuthContext } from '../../state/AuthContext';
+import Profile from '../../pages/profile/Profile';
 
 export default function Sidebar() {
   const { user } = useContext(AuthContext)
@@ -27,15 +28,16 @@ export default function Sidebar() {
               </span>
             </Link>
           </li>
-          <li className="sidebarListItem">
+
+          { user.type ? <li className="sidebarListItem">
             <Person className='sidebarIcon' />
-            <Link to={`/profile/${user.username}`} style={{ textDecoration: "none", color: "black"}}>
+            <Link to={`/profile/${user._id}` } style={{ textDecoration: "none", color: "black"}} element={<Profile />} >
               <span className="sidebarListItemText">
                 プロフィール
               </span>
             </Link>
             
-          </li>
+          </li> : ""}
           <li className="sidebarListItem">
             <Settings className='sidebarIcon' />
             <Link to="/settings" style={{ textDecoration: "none", color: "black"}}>

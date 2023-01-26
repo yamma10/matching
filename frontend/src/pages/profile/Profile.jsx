@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Timeline from '../../components/timeline/Timeline'
 import Topbar from '../../components/topbar/Topbar'
@@ -6,22 +6,26 @@ import "./Profile.css"
 import ProfileDesc from '../../components/profiledesc/ProfileDesc'
 import axios from "axios"
 import { useParams } from "react-router-dom";
+import { AuthContext } from '../../state/AuthContext'
 
 export default function Profile({}) {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
-  const [user, setUser] = useState({});
-  const username = useParams().username;
-
   
+
+  const id = useParams().id
+  const [user, setUser] = useState({});
+  
+
+  //
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get(`/users?username=${username}`);
+      const response = await axios.get(`/users/teacher/${id}`);
       // console.log(response);
       setUser(response.data);
     };
     fetchUser();
-  }, [username]);
+  }, [id]);
 
   return (
     <>
@@ -49,7 +53,7 @@ export default function Profile({}) {
             </div>
           </div>
           <div className="profileRightBottom">
-            <Timeline username={username}/>
+            <Timeline username={user.username}/>
             <ProfileDesc  state/>
           </div>
         </div>

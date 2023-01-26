@@ -33,7 +33,6 @@ router.post("/teacher", async (req, res) => {
     });
 
     const teacher = await newTeacher.save();
-    console.log("ok")
     return res.status(200).json(teacher);
   } catch (err) {
     return res.status(500).json(err);
