@@ -54,7 +54,7 @@ export default function Profile({}) {
           </div>
           <div className="profileRightBottom">
             <Timeline username={user.username}/>
-            <ProfileDesc  state/>
+            <ProfileDesc  user={user}/>
           </div>
         </div>
       </div>
