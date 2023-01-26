@@ -4,11 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../state/AuthContext';
 import "./Settings.css"
 
-//やり残し
-//requiredつける
-//ユーザー情報持ってくる
 
-
+//反映させるにはログインしなおす
 
 export default function Settings() {
   const { user } = useContext(AuthContext)
@@ -169,7 +166,8 @@ export default function Settings() {
                 <input
                   type="file" 
                   id ="file" 
-                  accept=".png, .jpeg, .jpg" 
+                  accept=".png, .jpeg, .jpg"
+                  
                   onChange={(e) => setFile(e.target.files[0])}
                 />
               </div>
