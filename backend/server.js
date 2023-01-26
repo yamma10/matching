@@ -4,6 +4,7 @@ const userRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
 const postRoute = require("./routes/posts")
 const uploadRoute = require("./routes/upload");
+
 const PORT = 5000;
 const mongoose = require("mongoose");
 const path = require("path");
@@ -13,8 +14,9 @@ require("dotenv").config();
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
-//第2引数で通信を許可
+//Serverインスタンスを作成
 const io = new Server(server, {
+  //originプロパティで指定したURL空の接続を許可する
   cors: {
     origin: ["http://localhost:3000"]
   }
@@ -25,10 +27,10 @@ io.on("connection", (socket) => {
 
   //クライアントから受信
   socket.on("send_message", (data) => {
-    console.log(data);
+    console.log(data.message.message);
 
     //クライアントへ送信
-    io.emit("received_message", data);
+    io.emit("received_message", data.message);
   })
 
   //通信が切れたとき
@@ -55,6 +57,7 @@ app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/upload", uploadRoute);
+
 
 
 
