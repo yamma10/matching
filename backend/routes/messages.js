@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const Teacher = require("../models/Teacher");
 const Student = require("../models/Student");
-const Room = require("../models/Room")
+const Room = require("../models/Room");
+const Message = require("../models/Message");
 
 //個人間のメッセージに関するAPI作成
 
@@ -36,7 +37,7 @@ router.post("/room", async (req, res) => {
 })
 
 // RoomのIDと相手の名前取得
-router.get("/hand", async (req, res) => {
+router.get("/getid", async (req, res) => {
   try {
     const myType = req.body.type;
     const _id = req.body._id;
@@ -57,6 +58,36 @@ router.get("/hand", async (req, res) => {
   }
 })
 
+//メッセージを送信
+router.post("/send", async (req, res) => {
+  try {
+    const sender_id = req.body.senderId;
+    const room_id = req.body.roomId;
+    const message = req.body.message;
+    const newMessage = await new Message({
+      sender_id: sender_id,
+      room_id: room_id,
+      message: message
+    })
+    const ok = await newMessage.save();
+    return res.status(200).json(ok);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+})
+
+//過去のメッセージを取得
+router.get("/receive", async (req, res) => {
+  try {
+    const room_id = req.body.roomId;
+    const messages = await Message.find({
+      room_id: room_id
+    })
+    return res.status(200).json(messages);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+})
 
 
 
