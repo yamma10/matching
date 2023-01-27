@@ -4,6 +4,7 @@ const userRoute = require("./routes/users")
 const authRoute = require("./routes/auth")
 const postRoute = require("./routes/posts")
 const uploadRoute = require("./routes/upload");
+const messageRoute = require("./routes/messages")
 
 const PORT = 5000;
 const mongoose = require("mongoose");
@@ -57,6 +58,7 @@ app.use("/api/users", userRoute);
 app.use("/api/auth", authRoute);
 app.use("/api/posts", postRoute);
 app.use("/api/upload", uploadRoute);
+app.use("/api/message", messageRoute);
 
 
 
