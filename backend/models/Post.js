@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const router = require("../routes/users");
 
 //投稿を作成する
 const PostSchema = new mongoose.Schema({
