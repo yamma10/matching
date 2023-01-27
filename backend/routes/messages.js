@@ -16,16 +16,16 @@ router.post("/room", async (req, res) => {
     const teacherId = req.body.teacher_id
     //ここまで
     //二人の部屋が存在するかチェック
-    const checkroom = Room.find({
+    const checkroom =  await Room.find({
       student_id: studentId,
       teacher_id: teacherId
     })
-    if(checkroom){
+    if(checkroom.length){
       return res.status(403).send("トークルームはすでに存在しています")
     }
     const newRoom = await new Room({
       student_id: studentId,
-      teacher_id: teacher_id
+      teacher_id: teacherId
     })
     
     const room = await newRoom.save();
@@ -38,12 +38,26 @@ router.post("/room", async (req, res) => {
 // RoomのIDと相手の名前取得
 router.get("/hand", async (req, res) => {
   try {
-    const Rooms = await Room.find({});
-    return res.status(200).json(Rooms);
+    const myType = req.body.type;
+    const _id = req.body._id;
+    console.log(myType)
+    if(myType) {
+      const Rooms = await Room.find({
+        teacher_id: _id
+      });
+      return res.status(200).json(Rooms);
+    } else {
+      const Rooms = await Room.find({
+        student_id: _id
+      })
+      return res.status(200).json(Rooms);
+    }
   } catch (err) {
     return res.status(500).json(err);
   }
 })
+
+
 
 
 // メッセージの投稿

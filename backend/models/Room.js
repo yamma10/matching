@@ -8,7 +8,10 @@ const RoomSchema = new mongoose.Schema({
   teacher_id: {
     type: String,
     requried: true
-  }
-})
+  },
+  
+},
+{ timestamps: true }
+)
 
 module.exports = mongoose.model("Room", RoomSchema);
