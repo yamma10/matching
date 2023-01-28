@@ -80,6 +80,18 @@ router.post("/send", async (req, res) => {
       room_id: room_id,
       message: message
     })
+    //roomをメッセージ順で更新したいのでupdateAtを更新する
+    const now = new Date();
+    const check = await Room.updateOne(
+      {
+      _id: newMessage. room_id
+      },
+      {
+        $set: {
+          updatedAt: now
+        }
+      }
+    )
     const ok = await newMessage.save();
     return res.status(200).json(ok);
   } catch (err) {
