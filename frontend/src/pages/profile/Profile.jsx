@@ -8,9 +8,10 @@ import axios from "axios"
 import { useParams } from "react-router-dom";
 import { AuthContext } from '../../state/AuthContext'
 
+
 export default function Profile({}) {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
-
+  
   
 
   const id = useParams().id

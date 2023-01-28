@@ -10,6 +10,7 @@ import Direct from "./pages/direct/Direct.jsx"
 import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "./state/AuthContext.js";
+import Rooms from "./pages/rooms/Rooms.jsx";
 
 
 
@@ -27,6 +28,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/profile/:id" element={user ? <Profile /> : <Top />} type="text/css"/>
         <Route path="/direct" element={user ? <Direct /> : <Top />} />
+        <Route path="/rooms/:room_id" element={user ? <Rooms /> : <Top /> } />
       </Routes>
     </Router>
   );

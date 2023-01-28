@@ -19,14 +19,16 @@ router.post("/room", async (req, res) => {
     //二人の部屋が存在するかチェック
     const checkroom =  await Room.find({
       student_id: studentId,
-      teacher_id: teacherId
+      teacher_id: teacherId,
     })
     if(checkroom.length){
       return res.status(403).send("トークルームはすでに存在しています")
     }
     const newRoom = await new Room({
       student_id: studentId,
-      teacher_id: teacherId
+      teacher_id: teacherId,
+      studentName: req.body.studentName,
+      teacherName: req.body.teacherName
     })
     
     const room = await newRoom.save();

@@ -9,6 +9,12 @@ const RoomSchema = new mongoose.Schema({
     type: String,
     requried: true
   },
+  studentName: {
+    type: String,
+  },
+  teacherName: {
+    type: String
+  }
   
 },
 { timestamps: true }

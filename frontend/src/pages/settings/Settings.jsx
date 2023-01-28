@@ -1,7 +1,6 @@
 import axios from 'axios';
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { studentUpdate, teacherUpdate } from '../../actionCalls';
 import { AuthContext } from '../../state/AuthContext';
 import "./Settings.css"
 
@@ -9,7 +8,7 @@ import "./Settings.css"
 
 
 export default function Settings() {
-  const { user, dispatch } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   const navigation = useNavigate();
 
@@ -59,13 +58,13 @@ export default function Settings() {
         type: user.type
       }
       if(user.type) {
-        console.log(newUser._id);
         await axios.put(`users/teacher/${newUser._id}`, newUser);
         
         localStorage.setItem("user", JSON.stringify(newUser));
       } else {
         await axios.put(`users/student/${user._id}`, newUser);
         // studentUpdate(newUser,dispatch);
+        localStorage.setItem("user", JSON.stringify(newUser));
       }
       
       navigation("/home");

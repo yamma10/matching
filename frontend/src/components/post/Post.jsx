@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react'
 import "./Post.css"
 import axios from "axios"
 import {format} from "timeago.js";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../state/AuthContext';
 
 export default function Post({ post }) {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
 
+  const navigation = useNavigate();
   
 
   const [like, setLike ] = useState(post.likes.length);
@@ -39,6 +40,24 @@ export default function Post({ post }) {
     setIsLiked(!isLiked);
   }
   
+  const handleSubmit = async () => {
+    try {
+
+      const createRoom = {
+        student_id: loginUser._id,
+        teacher_id: user._id,
+        studentName: loginUser.username,
+        teacherName: user.username
+      }
+
+      const room = await axios.post("/message/room", createRoom);
+      const room_id = room.data._id
+      //遷移するけど渡せない
+      navigation(`/rooms/${room_id}`)
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div className='post'>
@@ -84,7 +103,8 @@ export default function Post({ post }) {
             </span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText">
+            <span className="postCommentText" onClick={(e) => handleSubmit(e)}>
+            
               コンタクトをとる
             </span>
           </div>
