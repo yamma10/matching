@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react'
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { AuthContext } from '../../state/AuthContext';
@@ -15,6 +16,14 @@ export default function TalkRoom() {
 
   // 受け取れた
   // console.log(roomId);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const Messages = await axios.get(`/message/receive/${roomId}`);
+      console.log(Messages);
+    }
+    fetchMessages();
+  }, [])
 
 
   const { user } = useContext(AuthContext)

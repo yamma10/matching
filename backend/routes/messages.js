@@ -99,9 +99,10 @@ router.post("/send", async (req, res) => {
 })
 
 //過去のメッセージを取得
-router.get("/receive", async (req, res) => {
+router.get("/receive/:id", async (req, res) => {
   try {
-    const room_id = req.body.roomId;
+    const room_id = req.params.id;
+    console.log(room_id);
     const messages = await Message.find({
       room_id: room_id
     })
