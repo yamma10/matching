@@ -6,7 +6,7 @@ import "./Profile.css"
 import ProfileDesc from '../../components/profiledesc/ProfileDesc'
 import axios from "axios"
 import { useParams } from "react-router-dom";
-import { AuthContext } from '../../state/AuthContext'
+
 
 
 export default function Profile({}) {

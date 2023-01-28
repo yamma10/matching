@@ -43,21 +43,20 @@ router.post("/getid", async (req, res) => {
   try {
     const myType = req.body.type;
     const _id = req.body._id;
-    console.log(_id)
-    console.log(myType)
+    // console.log(_id)
+    // console.log(myType)
     if(myType) {
       const Rooms = await Room.find({
         teacher_id: _id
-      });
-      const flattenedData = Rooms.flat();
-      return res.status(200).json(flattenedData);
+      }).sort({ updateAt: -1});
+      return res.status(200).json(Rooms);
     } else {
       try {
         const Rooms = await Room.find({
         student_id: _id
-        })
-        const flattenedData = Rooms.flat();
-        return res.status(200).json(flattenedData);
+        }).sort({ updateAt: -1});
+        return res.status(200).json(Rooms);
+        
       } catch (err) {
         return res.status(500).json(err);
       }
@@ -112,15 +111,42 @@ router.get("/receive", async (req, res) => {
   }
 })
 
+//directで最新のメッセージを表示する
+router.get("/latest/student/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+    const rooms = await Room.find({
+      studentName: username
+    })
+    const room = rooms[0]
+    const latestMessage = await Message.find({
+      room_id: room._id
+    }).sort({createdAt: -1}).limit(1)
+    // console.log(latestMessage[0])
+    return res.status(200).json(latestMessage.message[0])
+  } catch(err) {
+    return res.status(500).json(err);
+  }
+})
+
+router.get("/latest/teacher/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+    const rooms = await Room.find({
+      teacherName: username
+    })
+    
+    const room = rooms[0];
+    const latestMessage = await Message.find({
+      room_id: room._id
+    }).sort({createdAt: -1}).limit(1)
+    // console.log(latestMessage[0]);
+    return res.status(200).json(latestMessage[0])
+  } catch(err) {
+    return res.status(500).json(err);
+  }
+})
 
 
-// メッセージの投稿
-// router.post("/messages", async (req, res) => {
-//   try {
-//     const room = await Room.findOne({})
-//   } catch (err) {
-//     return res.status(500).json(err);
-//   }
-// })
 
 module.exports = router;

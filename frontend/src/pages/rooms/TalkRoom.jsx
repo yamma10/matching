@@ -3,13 +3,13 @@ import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import { AuthContext } from '../../state/AuthContext';
 
-import "./Rooms.css"
+import "./TalkRoom.css"
   //通信したいURLを指定
   const socket = io("http://localhost:5000");
   //CORSの関係でエラーが出るので
   //サーバー側で処理を書く
 
-export default function Rooms() {
+export default function TalkRoom() {
 
   const roomId = useParams().room_id
 
@@ -43,7 +43,7 @@ export default function Rooms() {
   })
   
   return (
-    <div className="rooms">
+    <div className="talkroom">
       <div className="container">
         <h2>チャット</h2>
         <div className="chatInputButton">
