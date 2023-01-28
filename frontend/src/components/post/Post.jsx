@@ -52,7 +52,8 @@ export default function Post({ post }) {
 
       const room = await axios.post("/message/room", createRoom);
       const room_id = room.data._id
-      //遷移するけど渡せない
+
+    
       navigation(`/rooms/${room_id}`)
     } catch (err) {
       console.log(err);

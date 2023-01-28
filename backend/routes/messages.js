@@ -39,21 +39,30 @@ router.post("/room", async (req, res) => {
 })
 
 // RoomのIDと相手の名前取得
-router.get("/getid", async (req, res) => {
+router.post("/getid", async (req, res) => {
   try {
     const myType = req.body.type;
     const _id = req.body._id;
+    console.log(_id)
     console.log(myType)
     if(myType) {
       const Rooms = await Room.find({
         teacher_id: _id
       });
-      return res.status(200).json(Rooms);
+      const flattenedData = Rooms.flat();
+      return res.status(200).json(flattenedData);
     } else {
-      const Rooms = await Room.find({
+      try {
+        const Rooms = await Room.find({
         student_id: _id
-      })
-      return res.status(200).json(Rooms);
+        })
+        const flattenedData = Rooms.flat();
+        return res.status(200).json(flattenedData);
+      } catch (err) {
+        return res.status(500).json(err);
+      }
+      
+      
     }
   } catch (err) {
     return res.status(500).json(err);
