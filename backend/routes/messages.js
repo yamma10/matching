@@ -114,12 +114,14 @@ router.get("/receive/:id", async (req, res) => {
 })
 
 //directで最新のメッセージを表示する
+//studentNameから探す
 router.get("/latest/student/:username", async (req, res) => {
   try {
     const username = req.params.username;
     const rooms = await Room.find({
       studentName: username
     })
+    console.log(rooms);
     const room = rooms[0]
     const latestMessage = await Message.find({
       room_id: room._id
@@ -131,13 +133,14 @@ router.get("/latest/student/:username", async (req, res) => {
   }
 })
 
+//TeacherNameから探す
 router.get("/latest/teacher/:username", async (req, res) => {
   try {
     const username = req.params.username;
     const rooms = await Room.find({
       teacherName: username
     })
-    
+    console.log("caled")
     const room = rooms[0];
     const latestMessage = await Message.find({
       room_id: room._id

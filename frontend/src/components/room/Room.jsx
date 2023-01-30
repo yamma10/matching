@@ -15,10 +15,14 @@ export default function ({ name }) {
     const getMessage =  async() => {
       try {
         if (user.type) {
+          console.log(name);
           const message = await axios.get(`/message/latest/student/${name}`);
+          console.log(message)
           setMessage(message.data.message)
         } else {
+          console.log(name);
           const message = await axios.get(`/message/latest/teacher/${name}`)
+          console.log(message);
           setMessage(message.data.message)
         }
       } catch (err) {
@@ -28,7 +32,6 @@ export default function ({ name }) {
     getMessage();
   }, [])
 
-  console.log(message);
 
   return (
     <>

@@ -28,9 +28,10 @@ const io = new Server(server, {
 
 //クライアントと通信
 io.on("connection", (socket) => {
-  console.log("connecting");
+  // console.log("connecting");
   // Messageテーブルからroom_idをキーにしてメッセージを取り出す
   socket.on('join', async (room_id) => {
+    socket.join(room_id);
     const messages = await Message.find({
       room_id: room_id
     })
@@ -42,22 +43,25 @@ io.on("connection", (socket) => {
       }
     }));
 
-    socket.emit('init', messageList);
+    // console.log(room_id)
+    io.to(room_id).emit('init', messageList);
   })
   
 
   //クライアントから受信
   socket.on("send_message", async (data) => {
     try {
+      socket.join(data.roomId);
       const newMessage = new Message({
         sender_id: data.senderId,
         message: data.message,
         room_id: data.roomId
       });
       const message = await newMessage.save();
-      console.log(data.message);
-      console.log(data.senderId)
-      socket.emit('addMessage',{
+      // console.log(data.message);
+      // console.log(data.senderId)
+      // console.log(data.roomId);
+      io.to(data.roomId).emit('addMessage',{
         message: data.message,
         sender_id: data.senderId
       })

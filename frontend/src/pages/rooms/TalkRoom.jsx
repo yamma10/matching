@@ -10,8 +10,6 @@ import "./TalkRoom.css"
 
 export default function TalkRoom() {
 
-  
-
 
   const { user } = useContext(AuthContext)
 
@@ -22,14 +20,20 @@ export default function TalkRoom() {
 
   const roomId = useParams().room_id
 
+  const [id, setId] = useState(roomId)
+
   // 受け取れた
   // console.log(roomId);
 
   useEffect(() => {
     //通信したいURLを指定
-    const socket = io("http://localhost:5000");
     //CORSの関係でエラーが出るので
     //サーバー側で処理を書く
+    const socket = io("http://localhost:5000");
+
+    // console.log(id);
+    // socket.join(id);
+    
 
     //このタイミングでDBから過去のトーク履歴をもってきてほしいと送信
     socket.emit('join', roomId);
@@ -40,9 +44,9 @@ export default function TalkRoom() {
     })
 
     //自分や相手がメッセージを送信した際にここに返る
-    // socket.on('addMessage', (message) => {
-    //   setList(list => [...list, message]);
-    // })
+    socket.on('addMessage', (message) => {
+      setList(list => [...list, message]);
+    })
     //一旦通信を切っている
     return () => {
       socket.disconnect();
@@ -59,10 +63,10 @@ export default function TalkRoom() {
     setMessage(e.target.value)
   }
 
-  socket.on('addMessage', async(message) => {
-    console.log("返ってきました")
-    setList(list => [...list, message]);
-  })
+  // socket.on('addMessage', async(message) => {
+  //   console.log("返ってきました")
+  //   setList(list => [...list, message]);
+  // })
 
 
   const handleSendMessage = async (e) => {
@@ -86,8 +90,8 @@ export default function TalkRoom() {
           <input type="text" placeholder='にちゃあ・・・っと' onChange={handleInputMessage} value={message}/>
           <button style={{ backgroundColor: message === "" ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,1)"}} disabled={message === ""} onClick={handleSendMessage}>送信する</button>
         </div>
-        {list.map((item) => (
-          <SingleMessage key={item.message} item={item} />
+        {list.map((item,index) => (
+          <SingleMessage key={index} item={item} />
         ))}
       </div>
     </div>
