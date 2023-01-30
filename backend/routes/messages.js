@@ -81,9 +81,10 @@ router.post("/send", async (req, res) => {
     })
     //roomをメッセージ順で更新したいのでupdateAtを更新する
     const now = new Date();
+    console.log(newMessage.room_id)
     const check = await Room.updateOne(
       {
-      _id: newMessage. room_id
+      _id: newMessage.room_id
       },
       {
         $set: {
@@ -115,42 +116,49 @@ router.get("/receive/:id", async (req, res) => {
 
 //directで最新のメッセージを表示する
 //studentNameから探す
-router.get("/latest/student/:username", async (req, res) => {
+router.get("/latest/:roomId", async (req, res) => {
   try {
-    const username = req.params.username;
+    const room_id = req.params.roomId;
+    // console.log(room_id)
     const rooms = await Room.find({
-      studentName: username
+      _id: room_id
     })
-    console.log(rooms);
+    // console.log(rooms);
     const room = rooms[0]
     const latestMessage = await Message.find({
-      room_id: room._id
+      room_id: room_id
     }).sort({createdAt: -1}).limit(1)
-    // console.log(latestMessage[0])
-    return res.status(200).json(latestMessage.message[0])
+    // console.log(latestMessage[0].message)
+    const Data = {
+      teacherName: room.teacherName,
+      studentName: room.studentName,
+      message: latestMessage[0].message
+    }
+    // console.log(Data);
+    return res.status(200).json(Data);
   } catch(err) {
     return res.status(500).json(err);
   }
 })
 
 //TeacherNameから探す
-router.get("/latest/teacher/:username", async (req, res) => {
-  try {
-    const username = req.params.username;
-    const rooms = await Room.find({
-      teacherName: username
-    })
-    console.log("caled")
-    const room = rooms[0];
-    const latestMessage = await Message.find({
-      room_id: room._id
-    }).sort({createdAt: -1}).limit(1)
-    // console.log(latestMessage[0]);
-    return res.status(200).json(latestMessage[0])
-  } catch(err) {
-    return res.status(500).json(err);
-  }
-})
+// router.get("/latest/teacher/:username", async (req, res) => {
+//   try {
+//     const username = req.params.username;
+//     const rooms = await Room.find({
+//       teacherName: username
+//     })
+//     console.log("caled")
+//     const room = rooms[0];
+//     const latestMessage = await Message.find({
+//       room_id: room._id
+//     }).sort({createdAt: -1}).limit(1)
+//     // console.log(latestMessage[0]);
+//     return res.status(200).json(latestMessage[0])
+//   } catch(err) {
+//     return res.status(500).json(err);
+//   }
+// })
 
 
 

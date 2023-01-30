@@ -26,7 +26,10 @@ export default function RoomList() {
         }
         const res = await axios.post(`/message/getid`, getroom);
         // console.log(res)
-        setRooms(res.data);
+        setRooms(res.data.sort((room1, room2) => {
+          return new Date(room2.updatedAt) - new Date (room1.updatedAt);
+        })
+        );
       // console.log(response)
       };
       fetchRooms();
@@ -34,21 +37,19 @@ export default function RoomList() {
       console.log(err);
     }
   }, []);
-    
   return (
     <div className="roomscontainer">
       <div className="title">
         <h1>メッセージ</h1>
       </div>
       <div className="roomsWrapper">
-        {rooms.map(room => (
-          <Link to={`/talkroom/${room._id}`} style={{ textDecoration: "none", color: "black"}} >
-            <div className="room-card" key={room._id}>
-              {room.studentName === user.username 
+        {rooms.map((room, index) => (
+          <Link to={`/talkroom/${room._id}`} style={{ textDecoration: "none", color: "black"}} key={index} >
+              {/* {room.studentName === user.username 
                 ? <Room name={room.teacherName} />
                 : <Room name={room.studentName} />
-              }
-            </div>
+              } */}
+              <Room Id={room._id}  key={index}/>
           </Link>
         ))}
       </div>

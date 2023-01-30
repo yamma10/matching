@@ -17,6 +17,7 @@ require("dotenv").config();
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
+const Room = require("./models/Room");
 
 //Serverインスタンスを作成
 const io = new Server(server, {
@@ -51,12 +52,32 @@ io.on("connection", (socket) => {
   //クライアントから受信
   socket.on("send_message", async (data) => {
     try {
+      console.log(data.roomId);
       socket.join(data.roomId);
       const newMessage = new Message({
         sender_id: data.senderId,
         message: data.message,
         room_id: data.roomId
       });
+      // console.log(data);
+      const now = new Date();
+      try {
+        const check = await Room.updateOne(
+          {
+          _id: newMessage.room_id
+          },
+          {
+            $set: {
+              updatedAt: now
+            }
+          }
+        )
+        console.log(check);
+      } catch (err) {
+        cosole.log(err);
+      }
+      
+
       const message = await newMessage.save();
       // console.log(data.message);
       // console.log(data.senderId)
