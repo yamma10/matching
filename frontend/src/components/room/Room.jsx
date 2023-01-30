@@ -3,8 +3,9 @@ import React, { useContext, useState } from 'react'
 import { useEffect } from 'react'
 import { AuthContext } from '../../state/AuthContext'
 import "./Room.css"
-
+//トークルームのうちの1つのルーム
 export default function ({ name }) {
+
 
   const { user } = useContext(AuthContext);
 
@@ -32,7 +33,7 @@ export default function ({ name }) {
   return (
     <>
       <p>{name}</p>
-      <p class="message">{message}</p>
+      <p className="message">{message}</p>
     </>
   )
 }

@@ -2,15 +2,23 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
+import SingleMessage from '../../components/sendmessage/SingleMessage';
 import { AuthContext } from '../../state/AuthContext';
 
 import "./TalkRoom.css"
-  //通信したいURLを指定
-  const socket = io("http://localhost:5000");
-  //CORSの関係でエラーが出るので
-  //サーバー側で処理を書く
+  
 
 export default function TalkRoom() {
+
+  
+
+
+  const { user } = useContext(AuthContext)
+
+  // input欄の管理
+  const [message, setMessage] = useState("");
+  // トーク履歴の管理
+  const [list, setList] = useState([])
 
   const roomId = useParams().room_id
 
@@ -18,51 +26,68 @@ export default function TalkRoom() {
   // console.log(roomId);
 
   useEffect(() => {
-    const fetchMessages = async () => {
-      const Messages = await axios.get(`/message/receive/${roomId}`);
-      console.log(Messages);
-    }
-    fetchMessages();
-  }, [])
+    //通信したいURLを指定
+    const socket = io("http://localhost:5000");
+    //CORSの関係でエラーが出るので
+    //サーバー側で処理を書く
+
+    //このタイミングでDBから過去のトーク履歴をもってきてほしいと送信
+    socket.emit('join', roomId);
+
+    //いままでのトーク履歴がこれに返る
+    socket.on('init', (messages) => {
+      setList(messages);
+    })
+
+    //自分や相手がメッセージを送信した際にここに返る
+    // socket.on('addMessage', (message) => {
+    //   setList(list => [...list, message]);
+    // })
+    //一旦通信を切っている
+    return () => {
+      socket.disconnect();
+    };
+    
+  }, [roomId])
+  // console.log(data)
+
+  //通信したいURLを指定
+  const socket = io("http://localhost:5000");
+
+  const handleInputMessage = (e) => {
+    e.preventDefault();
+    setMessage(e.target.value)
+  }
+
+  socket.on('addMessage', async(message) => {
+    console.log("返ってきました")
+    setList(list => [...list, message]);
+  })
 
 
-  const { user } = useContext(AuthContext)
-
-  const [message, setMessage] = useState("");
-  const [list, setList] = useState([])
-
-  //送信した段階でAPIを叩いてDBに登録
-  const handleSendMessage = () => {
+  const handleSendMessage = async (e) => {
+    e.preventDefault();
     const User = {
-      _id: user._id,
-      message: message
+      senderId: user._id,
+      message: message,
+      roomId: roomId 
     }
-    //serverへ送信
-    socket.emit("send_message", {message: User});
+    socket.emit('send_message', User);
     setMessage("");
     console.log("sousinn")
   }
 
-  //サーバーから受信
-  socket.on("received_message", (data) => {
-    console.log(data);
-    
-    //リストにデータを追加
-    setList([...list, data])
-  })
   
   return (
     <div className="talkroom">
       <div className="container">
         <h2>チャット</h2>
         <div className="chatInputButton">
-          <input type="text" placeholder='にちゃあ・・・っと' onChange={(e) => setMessage(e.target.value)} value={message}/>
-          <button onClick={() => handleSendMessage()}>チャット</button>
+          <input type="text" placeholder='にちゃあ・・・っと' onChange={handleInputMessage} value={message}/>
+          <button style={{ backgroundColor: message === "" ? "rgba(0,0,0,0.5)" : "rgba(0,0,0,1)"}} disabled={message === ""} onClick={handleSendMessage}>送信する</button>
         </div>
-        {list.map((chat) => (
-          <div className="chatArea" key={chat.message}>
-            {chat.message}
-          </div>
+        {list.map((item) => (
+          <SingleMessage key={item.message} item={item} />
         ))}
       </div>
     </div>

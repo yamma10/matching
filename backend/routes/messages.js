@@ -68,7 +68,7 @@ router.post("/getid", async (req, res) => {
   }
 })
 
-//メッセージを送信
+//メッセージをDBに保存する
 router.post("/send", async (req, res) => {
   try {
     const sender_id = req.body.senderId;
@@ -102,10 +102,11 @@ router.post("/send", async (req, res) => {
 router.get("/receive/:id", async (req, res) => {
   try {
     const room_id = req.params.id;
-    console.log(room_id);
+    // console.log(room_id);
     const messages = await Message.find({
       room_id: room_id
     })
+    // console.log(messages);
     return res.status(200).json(messages);
   } catch (err) {
     return res.status(500).json(err);

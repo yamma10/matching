@@ -27,6 +27,7 @@ export default function Timeline({ username }) {
         return new Date(post2.createdAt) - new Date(post1.createdAt);
       })
       );
+      // console.log(posts)
     };
     fetchPosts();
   }, [username]);

@@ -6,6 +6,8 @@ const postRoute = require("./routes/posts")
 const uploadRoute = require("./routes/upload");
 const messageRoute = require("./routes/messages")
 
+const Message = require("./models/Message");
+
 const PORT = 5000;
 const mongoose = require("mongoose");
 const path = require("path");
@@ -15,6 +17,7 @@ require("dotenv").config();
 const http = require("http");
 const server = http.createServer(app);
 const { Server } = require("socket.io");
+
 //Serverインスタンスを作成
 const io = new Server(server, {
   //originプロパティで指定したURL空の接続を許可する
@@ -22,22 +25,52 @@ const io = new Server(server, {
     origin: ["http://localhost:3000"]
   }
 });
+
 //クライアントと通信
 io.on("connection", (socket) => {
-  // console.log("クライアントと接続しました");
+  console.log("connecting");
+  // Messageテーブルからroom_idをキーにしてメッセージを取り出す
+  socket.on('join', async (room_id) => {
+    const messages = await Message.find({
+      room_id: room_id
+    })
+
+    const messageList = await Promise.all(messages.map((message) => {
+      return {
+        message: message.message,
+        sender_id: message.sender_id
+      }
+    }));
+
+    socket.emit('init', messageList);
+  })
+  
 
   //クライアントから受信
-  socket.on("send_message", (data) => {
-    console.log(data.message.message);
-
+  socket.on("send_message", async (data) => {
+    try {
+      const newMessage = new Message({
+        sender_id: data.senderId,
+        message: data.message,
+        room_id: data.roomId
+      });
+      const message = await newMessage.save();
+      console.log(data.message);
+      console.log(data.senderId)
+      socket.emit('addMessage',{
+        message: data.message,
+        sender_id: data.senderId
+      })
+    } catch(err) {
+      console.log(err)
+    }
+    
     //クライアントへ送信
-    io.emit("received_message", data.message);
+    // io.emit("received_message", {
+    //   message: data.message,
+    //   sender_id: data.senderId
+    // });
   })
-
-  //通信が切れたとき
-  // socket.on("disconnect", () => {
-  //   console.log('クライアントと接続が切れました');
-  // })
 })
 
 

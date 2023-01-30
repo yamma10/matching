@@ -1,0 +1,6 @@
+.chatArea {
+  border-radius: 10px;
+  margin-bottom: 15px;
+  box-shadow: 0px 2.5px 5px 0.1px rgb(138, 149, 156);
+  padding: 10px 20px;
+}
