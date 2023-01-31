@@ -5,91 +5,54 @@ import "./ProfileDesc.css"
 //文字数に制限を設ける
 // 一言の文字数は300字までにする
 export default function ProfileDesc({user}) {
-
-  const checkCity = () => {
+  console.log(user)
+  function checkcity(user) {
     switch(user.city) {
       case "saga": 
-        return (
-          <>
-            <span>佐賀市</span>
-          </>
-        );
+        return "佐賀市"
       case "karatsu":
-        return (
-          <>
-            <span>唐津市</span>
-          </>
-        );
+        return "唐津市"
       case "tosu":
-        return (
-          <>
-            <span>鳥栖市</span>
-          </>
-        );
+        return "鳥栖市"
       case "taku":
-        return (
-          <>
-            <span>多久市</span>
-          </>
-        );
+        return "多久市"
       case "imari":
-        return (
-          <>
-            <span>伊万里市</span>
-          </>
-        );
+        return "伊万里市"
       case "kashima":
-        return (
-          <>
-            <span>鹿島市</span>
-          </>
-        );
+        return "鹿島市"
       case "ogi":
-        return (
-          <>
-            <span>小城市</span>
-          </>
-        );
+        return "小城市"
       case "ureshino":
-        return (
-          <>
-            <span>嬉野市</span>
-          </>
-        );
+        return "嬉野市"
       case "kanzaki":
-        return (
-          <>
-            <span>神崎市</span>
-          </>
-        );
+        return "神崎市"
     }
   }
+  const city = checkcity(user)
+  console.log(city);
 
-  const checkMethod = () => {
+  function checkMethod (user) {
     if (user.method) {
-      return (
-        <span>オンラインも可能</span>
-      )
+      return "オンラインも可能"
     } else {
-      return (
-        <span>対面</span>
-      )
+      return "対面授業"
     }
   }
+  const method = checkMethod(user);
 
   const teacherdesc = () => {
     return (
       <>
         <div className="type">
           お住まい（市まで）:<br className='hidden' />
-          {checkCity()}
+          {city}
         </div>
         <div className="type">
-          対応できる教科:
+          対応できる教科: {user.subject}
         </div>
         <div className="type">
           授業形態:<br/>    
-          <span>{checkMethod()}</span> 
+          <span>{method}</span> 
         </div>
       </>
     )

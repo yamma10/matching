@@ -3,6 +3,8 @@
   height: 150px;
   box-shadow: 3px 7px 13px -10px #65789f;
   border-radius: 10px;
+  background-color: white;
+  border-bottom: 1px solid;
 }
 
 textarea {

@@ -25,7 +25,7 @@ export default function Settings() {
   // プロフィール画像
   const [file, setFile] = useState(user.profilePicture);
 
-  console.log(city);
+  // console.log(city);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,7 +60,7 @@ export default function Settings() {
         method: method,
         type: user.type
       }
-      console.log(newUser);
+      // console.log(newUser);
       if(user.type) {
         await axios.put(`users/teacher/${newUser._id}`, newUser);
         

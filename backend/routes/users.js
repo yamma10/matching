@@ -27,7 +27,7 @@ router.put("/teacher/:id", async (req, res) => {
   //params.idは:idの部分
   if (req.body._id === req.params.id) {
     try {
-      console.log("ok")
+      // console.log("ok")
       const teacher = await Teacher.findByIdAndUpdate(req.body._id, {
         $set: req.body,
       });

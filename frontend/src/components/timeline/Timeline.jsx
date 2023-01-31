@@ -50,7 +50,7 @@ export default function Timeline({ username }) {
     }
   }
 
-  console.log(posts.length)
+  // console.log(posts.length)
 
   const handlePageChange = (e) => {
     setCurrentPage(e.selected + 1);
