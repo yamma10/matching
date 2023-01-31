@@ -11,41 +11,40 @@ export default function Sidebar() {
     <div className="sidebar">
       <div className="sidebarWrapper">
         <ul className="sidebarList">
-          <li className="sidebarListItem">
-            <Home className='sidebarIcon' />
-            <Link to="/home" style={{ textDecoration: "none", color: "black"}}>
-              <span className="sidebarListItemText">
-                ホーム
-              </span>
-            </Link>
-            
-          </li>
-          <li className="sidebarListItem">
-            <Message className='sidebarIcon' />
-            <Link to="/direct" style={{ textDecoration: "none", color: "black"}}>
-              <span className="sidebarListItemText">
-                メッセージ
-              </span>
-            </Link>
-          </li>
-
-          { user.type ? <li className="sidebarListItem">
-            <Person className='sidebarIcon' />
-            <Link to={`/profile/${user._id}` } style={{ textDecoration: "none", color: "black"}} element={<Profile />} >
+          <Link to="/home" style={{ textDecoration: "none", color: "black"}}>
+            <li className="sidebarListItem">
+              <Home className='sidebarIcon' />
+              
+                <span className="sidebarListItemText">
+                  ホーム
+                </span>
+            </li>
+          </Link>
+          <Link to="/direct" style={{ textDecoration: "none", color: "black"}}>
+            <li className="sidebarListItem">
+              <Message className='sidebarIcon' />
+              
+                <span className="sidebarListItemText">
+                  メッセージ
+                </span>
+            </li>
+          </Link>
+          { user.type 
+          ? <Link to={`/profile/${user._id}` } style={{ textDecoration: "none", color: "black"}} element={<Profile />}><li className="sidebarListItem">            <Person className='sidebarIcon' />
               <span className="sidebarListItemText">
                 プロフィール
               </span>
-            </Link>
-            
-          </li> : ""}
-          <li className="sidebarListItem">
-            <Settings className='sidebarIcon' />
-            <Link to="/settings" style={{ textDecoration: "none", color: "black"}}>
-              <span className="sidebarListItemText">
-                設定
-              </span>
-            </Link>
-          </li>
+            </li></Link> : ""}
+
+          <Link to="/settings" style={{ textDecoration: "none", color: "black"}}>
+            <li className="sidebarListItem">
+              <Settings className='sidebarIcon' />
+                <span className="sidebarListItemText">
+                  設定
+                </span>
+              
+            </li>
+          </Link>
         </ul>
         <hr className="sidebarHr" />
       </div>

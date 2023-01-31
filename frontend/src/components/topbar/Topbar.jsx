@@ -14,18 +14,18 @@ export default function Topbar() {
       <div className="topbarLeft">
         <Link to="/home" style={{ textDecoration: "none" }}>
           <span className="logo">
-            タイトル
+            佐賀でサガそう
           </span> 
         </Link>
         
       </div>
       <div className="topbarCenter">
         <div className="searchbar">
-          <Search className="searchIcon"/>
+          {/* <Search className="searchIcon"/>
           <input
             type="text" 
             className="searchInput"
-            placeholder='キーワードを入力してください' />
+            placeholder='キーワードを入力してください' /> */}
         </div>
       </div>
       <div className="topbarRight">

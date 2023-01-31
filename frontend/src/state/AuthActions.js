@@ -13,7 +13,3 @@ export const LoginError = (user) => ({
   payload: error,
 });
 
-export const UpdateUser = (user) => ({
-  type: "UPDATE_USER",
-  payload: user,
-})

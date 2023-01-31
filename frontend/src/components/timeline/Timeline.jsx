@@ -27,6 +27,7 @@ export default function Timeline({ username }) {
         return new Date(post2.createdAt) - new Date(post1.createdAt);
       })
       );
+      // console.log(posts)
     };
     fetchPosts();
   }, [username]);
@@ -49,6 +50,8 @@ export default function Timeline({ username }) {
     }
   }
 
+  console.log(posts.length)
+
   const handlePageChange = (e) => {
     setCurrentPage(e.selected + 1);
   }
@@ -64,6 +67,7 @@ export default function Timeline({ username }) {
 
   return (
     <div className="timeline">
+      
       <div className="timelineWrapper">
         { judge()
         ? <Share />
@@ -74,21 +78,25 @@ export default function Timeline({ username }) {
           <Post post={post} key={post._id} />))
         }
       </div>
-      {posts 
-        ? <Pagination
-        previousLabel={"前のページ"}
-        nextLabel={"次のページ"}
-        breakLabel={"..."}
-        breakClassName={"break-me"}
-        pageCount={Math.ceil(posts.length/postsPerPage)}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={5}
-        onPageChange={handlePageChange}
-        containerClassName={"pagination"}
-        subContainerClassName={"pages pagination"}
-        activeClassName={"active"}
-      />
-        : ""
+      {
+        posts.length
+        ? (posts 
+          ? <Pagination
+          previousLabel={"前のページ"}
+          nextLabel={"次のページ"}
+          breakLabel={"..."}
+          breakClassName={"break-me"}
+          pageCount={Math.ceil(posts.length/postsPerPage)}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={5}
+          onPageChange={handlePageChange}
+          containerClassName={"pagination"}
+          subContainerClassName={"pages pagination"}
+          activeClassName={"active"}
+        />
+          : ""
+        )
+        : <p>まだ投稿がありません</p>
       }
       
     </div>

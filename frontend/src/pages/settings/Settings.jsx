@@ -1,7 +1,7 @@
+import { convertLength } from '@mui/material/styles/cssUtils';
 import axios from 'axios';
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { studentUpdate, teacherUpdate } from '../../actionCalls';
 import { AuthContext } from '../../state/AuthContext';
 import "./Settings.css"
 
@@ -9,7 +9,7 @@ import "./Settings.css"
 
 
 export default function Settings() {
-  const { user, dispatch } = useContext(AuthContext)
+  const { user } = useContext(AuthContext)
 
   const navigation = useNavigate();
 
@@ -24,6 +24,8 @@ export default function Settings() {
 
   // プロフィール画像
   const [file, setFile] = useState(user.profilePicture);
+
+  console.log(city);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,14 +60,15 @@ export default function Settings() {
         method: method,
         type: user.type
       }
+      console.log(newUser);
       if(user.type) {
-        console.log(newUser._id);
         await axios.put(`users/teacher/${newUser._id}`, newUser);
         
         localStorage.setItem("user", JSON.stringify(newUser));
       } else {
         await axios.put(`users/student/${user._id}`, newUser);
         // studentUpdate(newUser,dispatch);
+        localStorage.setItem("user", JSON.stringify(newUser));
       }
       
       navigation("/home");
@@ -167,7 +170,7 @@ export default function Settings() {
                   value={subject}
                 />
               </div>
-              <div className="settingItem">
+              {/* <div className="settingItem">
                 <p>プロフィール画像を設定する</p>
                 <input
                   type="file" 
@@ -176,7 +179,7 @@ export default function Settings() {
                   
                   onChange={(e) => setFile(e.target.files[0])}
                 />
-              </div>
+              </div> */}
               <div className='settingItem' >
                 <p>授業形態</p>
                 <select
@@ -243,6 +246,8 @@ export default function Settings() {
                 <p>住まい（市まで）</p>
                 <select 
                 className='settingInput'
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
                 >
                   <option value={"saga"}>
                     佐賀市

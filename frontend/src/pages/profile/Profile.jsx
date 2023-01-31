@@ -2,15 +2,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Timeline from '../../components/timeline/Timeline'
 import Topbar from '../../components/topbar/Topbar'
-import "./Profile.css"
+import "./style.css"
 import ProfileDesc from '../../components/profiledesc/ProfileDesc'
 import axios from "axios"
 import { useParams } from "react-router-dom";
-import { AuthContext } from '../../state/AuthContext'
+
+
 
 export default function Profile({}) {
   const PUBLIC_FOLDER = process.env.REACT_APP_PUBLIC_FOLDER;
-
+  
   
 
   const id = useParams().id

@@ -7,15 +7,15 @@ export default function Toptopbar() {
   return (
     <div className={styles.topbarContainer}>
       <div className={styles.topbarLeft}>
-        <span className={styles.logo}>タイトル</span>
+        <span className={styles.logo}>佐賀でサガそう</span>
       </div>
       <div className={styles.topbarCenter}>
         <div className={styles.searchbar}>
-          <Search className={styles.searchIcon}/>
+          {/* <Search className={styles.searchIcon}/>
           <input
             type="text" 
             className={styles.searchInput}
-            placeholder='キーワードを入力してください' />
+            placeholder='キーワードを入力してください' /> */}
         </div>
       </div>
       <div className={styles.topbarRight}>

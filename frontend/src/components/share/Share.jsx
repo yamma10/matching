@@ -60,7 +60,7 @@ export default function Share() {
         <form className="shareButtons" onSubmit={(e) => handleSubmit(e)}>
           <div className="shareOptions">
             <label className="shareOption" htmlFor="file">
-              <Image
+              {/* <Image
                 className="shareIcon" htmlColor='blue'
                 />
               <span className="shareOptionText">
@@ -72,7 +72,7 @@ export default function Share() {
                  accept=".png, .jpeg, .jpg" 
                  style={{display: "none"}}
                  onChange={(e) => setFile(e.target.files[0])}
-              />
+              /> */}
             </label>
           </div>
           <button className="shareButton" type="submit">
