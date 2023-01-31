@@ -1,0 +1,31 @@
+.timeline {
+  flex: 7;
+
+}
+
+.timelineWrapper {
+  padding: 20px 0;
+
+}
+
+.pagination{
+  display: flex;
+  justify-content: center;
+}
+
+.pagination > li{
+  list-style: none;
+  margin: 0 10px;
+  padding: 0 5px;
+  cursor: pointer;
+	transition: all 0.3s ease 0s;
+}
+
+.pagination > li:hover {
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.25);
+	transform: translateY(-0.1875em);
+}
+
+.active {
+  text-decoration: underline;
+}

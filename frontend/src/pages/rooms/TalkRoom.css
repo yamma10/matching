@@ -1,0 +1,54 @@
+body {
+  margin-top: 0;
+  background-color: #ffffe0;
+}
+
+
+
+.container {
+
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 500px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.container h2 {
+  text-align: center;
+  font-size: 35px;
+  margin-bottom: 30px;
+}
+
+.container .chatInputButton {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.container .chatInputButton input {
+  margin-top: 30px;
+  padding: 12px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background-color: rgb(218, 229, 240);
+}
+
+.container .chatInputButton button {
+  background: rgb(56, 82, 103);
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+}
+
+.MessageArea {
+  height:60vh;
+  overflow-y: scroll;
+  background-color: white;
+}
+
+/* .MessageArea::-webkit-scrollbar{
+  display:none;
+} */

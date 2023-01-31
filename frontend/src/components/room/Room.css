@@ -1,0 +1,26 @@
+.message {
+  text-align: center;
+}
+p {
+  margin:0
+}
+.room-card {
+  display:flex;
+  flex-direction: column;
+  height: 70px;
+  width: 300px;
+  border: 1px solid ;
+  border-radius: 5px;
+  cursor: pointer;
+  padding:6px;
+  font-size: 20px;
+  box-shadow: 3px 7px 13px -10px #65789f;
+  transition: all 0.3s;
+  background-color: white;
+}
+
+.room-card:hover {
+  box-shadow: none;
+  transform: translateY(3px);
+  border-bottom: none;
+}

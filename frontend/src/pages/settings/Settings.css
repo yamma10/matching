@@ -1,0 +1,65 @@
+.settings {
+  width: 100vw;
+  height: 100vh;
+  background-color:  #f0f2f5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.settingTop {
+  margin-top: 10px;
+}
+
+.settingsWrapper {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  background-color: white;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 3px 7px 13px -10px #404755;
+}
+
+.settingBottom {
+  margin: 20px;
+}
+
+.settingItems {
+  /* height: 300px; */
+  width: 400px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 10px;
+}
+
+.settingInput {
+  height: 25px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid gray;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.settingInput:focus {
+  outline: none;
+}
+
+
+
+
+
+.loginButton {
+  margin-top: 20px;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: orange;
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+}
