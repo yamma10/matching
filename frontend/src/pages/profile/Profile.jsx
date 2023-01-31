@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import Sidebar from '../../components/sidebar/Sidebar'
 import Timeline from '../../components/timeline/Timeline'
 import Topbar from '../../components/topbar/Topbar'
-import "./Profile.css"
+import "./style.css"
 import ProfileDesc from '../../components/profiledesc/ProfileDesc'
 import axios from "axios"
 import { useParams } from "react-router-dom";
