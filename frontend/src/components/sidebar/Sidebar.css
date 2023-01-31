@@ -1,16 +1,19 @@
 .sidebar {
   flex: 2.5;
   height: 100vh;
+  background-color: #ffffe0;
 }
 
 .sidebarWrapper {
   padding: 20px;
+  
 }
 
 .sidebarList {
   padding: 0;
   margin: 0;
   list-style: none;
+  background-color: white;
 }
 
 .sidebarListItem {

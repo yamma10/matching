@@ -1,9 +1,11 @@
 .timeline {
   flex: 7;
+
 }
 
 .timelineWrapper {
-  padding: 20px;
+  padding: 20px 0;
+
 }
 
 .pagination{
