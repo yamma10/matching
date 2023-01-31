@@ -12,7 +12,7 @@ router.post("/room", async (req, res) => {
   try {
     const check = await Student.findOne({_id: studentId});
     if (!check) {
-      res.status(404).send("生徒アカウントのみトークルームを作成できます");
+      res.status(404).json("生徒アカウントのみトークルームを作成できます");
     }
     const teacherId = req.body.teacher_id
     //ここまで
@@ -22,7 +22,7 @@ router.post("/room", async (req, res) => {
       teacher_id: teacherId,
     })
     if(checkroom.length){
-      return res.status(403).send("トークルームはすでに存在しています")
+      return res.status(403).json("トークルームはすでに存在しています")
     }
     const newRoom = await new Room({
       student_id: studentId,

@@ -74,7 +74,7 @@ export default function TalkRoom() {
       setList(list => [...list, message]);
     })
 
-    messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+    // messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
 
     //一旦通信を切っている
     return () => {
@@ -86,7 +86,6 @@ export default function TalkRoom() {
   }, [])//[roomId,list]
   // console.log(data)
 
-  console.log(room)
 
 
   //通信したいURLを指定
@@ -114,9 +113,6 @@ export default function TalkRoom() {
     setMessage("");
     console.log("sousinn")
   }
-
-  console.log(user.username)
-  console.log(room.studentName)
   
   return (
     <div className="talkroom">

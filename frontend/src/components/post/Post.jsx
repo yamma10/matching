@@ -56,7 +56,7 @@ export default function Post({ post }) {
     
       navigation(`/rooms/${room_id}`)
     } catch (err) {
-      console.log(err);
+      alert(err.response.data)
     }
   }
 
@@ -104,10 +104,14 @@ export default function Post({ post }) {
             </span>
           </div>
           <div className="postBottomRight">
-            <span className="postCommentText" onClick={(e) => handleSubmit(e)}>
+            { loginUser.type
+              ?  ""
+              : <span className="postCommentText" onClick={(e) => handleSubmit(e)}>
             
-              コンタクトをとる
-            </span>
+                  コンタクトをとる
+                </span>
+            }
+            
           </div>
         </div>
       </div>
