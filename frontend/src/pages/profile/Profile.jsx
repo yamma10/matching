@@ -28,6 +28,7 @@ export default function Profile({}) {
     fetchUser();
   }, [id]);
 
+  console.log(user)
   return (
     <>
       <Topbar />
