@@ -10,7 +10,7 @@
 .container h2 {
   text-align: center;
   font-size: 35px;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .container .chatInputButton {
@@ -19,6 +19,7 @@
 }
 
 .container .chatInputButton input {
+  margin-top: 30px;
   padding: 12px;
   border-radius: 5px;
   outline: none;
@@ -34,3 +35,12 @@
   padding: 10px;
 }
 
+.MessageArea {
+  height:60vh;
+  overflow-y: scroll;
+  border: 1px solid;
+}
+
+/* .MessageArea::-webkit-scrollbar{
+  display:none;
+} */

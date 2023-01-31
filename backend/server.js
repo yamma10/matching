@@ -52,7 +52,7 @@ io.on("connection", (socket) => {
   //クライアントから受信
   socket.on("send_message", async (data) => {
     try {
-      console.log(data.roomId);
+      // console.log(data.roomId);
       socket.join(data.roomId);
       const newMessage = new Message({
         sender_id: data.senderId,
@@ -72,7 +72,7 @@ io.on("connection", (socket) => {
             }
           }
         )
-        console.log(check);
+        // console.log(check);
       } catch (err) {
         cosole.log(err);
       }
@@ -90,11 +90,6 @@ io.on("connection", (socket) => {
       console.log(err)
     }
     
-    //クライアントへ送信
-    // io.emit("received_message", {
-    //   message: data.message,
-    //   sender_id: data.senderId
-    // });
   })
 })
 

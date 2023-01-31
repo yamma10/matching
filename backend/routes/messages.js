@@ -68,32 +68,13 @@ router.post("/getid", async (req, res) => {
   }
 })
 
-//メッセージをDBに保存する
-router.post("/send", async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
-    const sender_id = req.body.senderId;
-    const room_id = req.body.roomId;
-    const message = req.body.message;
-    const newMessage = await new Message({
-      sender_id: sender_id,
-      room_id: room_id,
-      message: message
-    })
-    //roomをメッセージ順で更新したいのでupdateAtを更新する
-    const now = new Date();
-    console.log(newMessage.room_id)
-    const check = await Room.updateOne(
-      {
-      _id: newMessage.room_id
-      },
-      {
-        $set: {
-          updatedAt: now
-        }
-      }
-    )
-    const ok = await newMessage.save();
-    return res.status(200).json(ok);
+    const _id = req.params.id;
+    // console.log(_id)
+    const room = await Room.findById(_id);
+    // console.log(room);
+    res.status(200).json(room)
   } catch (err) {
     return res.status(500).json(err);
   }
