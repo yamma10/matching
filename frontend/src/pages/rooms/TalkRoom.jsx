@@ -52,7 +52,7 @@ export default function TalkRoom() {
     //通信したいURLを指定
     //CORSの関係でエラーが出るので
     //サーバー側で処理を書く
-    const socket = io("http://localhost:5000");
+    const socket = io("https://matchingapi.onrender.com");
 
     // console.log("a")
     // console.log(id);
@@ -89,7 +89,7 @@ export default function TalkRoom() {
 
 
   //通信したいURLを指定
-  const socket = io("http://localhost:5000");
+  const socket = io("https://matchingapi.onrender.com");
 
   const handleInputMessage = (e) => {
     e.preventDefault();
